@@ -1,0 +1,118 @@
+* {
+    -fx-primary: #000000;
+    -fx-secondary: #121212;
+    -fx-terciary: #1ED760;
+}
+
+.primary_color {
+    -fx-background-color: -fx-primary;
+}
+
+.secondary_color {
+    -fx-background-color: -fx-secondary;
+}
+
+.selected {
+    -fx-border-color: -fx-terciary;
+    -fx-border-width: 0 0 0 5;
+    -fx-text-fill: white;
+}
+
+.selected Label {
+    -fx-text-fill: white;
+}
+
+Label:hover {
+    -fx-text-fill: white;
+}
+
+.imagem1 {
+    -fx-image: url("../bin/img/ic_home.png");
+}
+
+.top-border-separator {
+    -fx-border-color: #282828;
+    -fx-border-width: 1 0 0 0;
+}
+
+.search-container {
+    -fx-background-color: #fff;
+    -fx-background-radius: 100;
+}
+
+.upgrade_button {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 2px;
+    -fx-border-color: #189444;
+    -fx-text-fill: #a1a1a1;
+}
+
+.upgrade_button:hover {
+    -fx-border-color: -fx-terciary;
+    -fx-background-color: -fx-terciary;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff;
+    -fx-scale-x: 1.1px;
+    -fx-scale-y: 1.1px;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: #121212
+}
+
+.scroll-pane>.corner {
+    -fx-background-color: #121212;
+}
+
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: #121212;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #8787871f;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar>.increment-button>.increment-arrow,
+.scroll-bar>.decrement-button>.decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #87878785;
+}
+
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #878787f1;
+}
+
+
+/* 
+#lbInicio:hover {
+    -fx-text-fill: red;
+}
+
+#lbInicio:hover .imagem1 {
+    -fx-image: url("../bin/img/ic_love.png");
+} 
+
+.imagem1:hover {
+    -fx-image: url("../bin/img/ic_love.png");
+}
+
+*/

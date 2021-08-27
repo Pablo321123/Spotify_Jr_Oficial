@@ -1,0 +1,29 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "controller.App",
+            "projectName": "Spotify_Jr_cf298ee4"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "controller.Main",
+            "projectName": "Spotify_Jr_cf298ee4",            
+            "vmArgs": "--module-path \"E:/CEFET/Java/Spotify_Jr/lib/javafx-sdk-16/lib\" --add-modules javafx.controls,javafx.fxml",
+        }
+    ]
+}
