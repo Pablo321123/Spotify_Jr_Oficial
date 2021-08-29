@@ -102,6 +102,55 @@ Label:hover {
 }
 
 
+/* Styling the slider track */
+
+.jfx-slider>.track {
+    -fx-background-color: #87878785;
+}
+
+
+/* Styling the slider thumb */
+
+.jfx-slider>.thumb {
+    -fx-background-color: transparent;
+}
+
+.jfx-slider>.thumb:hover {
+    -fx-background-color: white;
+}
+
+
+/* Styling the filled track */
+
+.jfx-slider>.colored-track {
+    -fx-background-color: -fx-terciary;
+}
+
+
+/* Styling the animated thumb */
+
+.sliderVolume>.animated-thumb {
+    -fx-background-color: -fx-terciary;
+}
+
+.timeSongSlider>.animated-thumb {
+    -fx-background-color: transparent;
+}
+
+
+/* Styling the slider value text inside animated thumb */
+
+.jfx-slider .slider-value {
+    -fx-fill: white;
+    -fx-stroke: white;
+}
+
+.timeSongSlider .slider-value {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+}
+
+
 /* 
 #lbInicio:hover {
     -fx-text-fill: red;

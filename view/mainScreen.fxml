@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -135,7 +135,7 @@
                               <Image url="@../bin/img/ic_search.png" />
                            </image>
                         </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="176.0" promptText="Artistas, músicas ou podcasts" style="-fx-background-color: transparent;" />
+                        <TextField prefHeight="25.0" prefWidth="176.0" promptText="Artistas ou músicas " style="-fx-background-color: transparent;" />
                      </children>
                   </HBox>
                   <Pane prefHeight="56.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
@@ -164,9 +164,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" smooth="false" VBox.vgrow="ALWAYS">
+                        <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
                            <image>
-                              <Image url="@../bin/img/sponsered.png" />
+                              <Image url="@../bin/img/Spotify_banner_2.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -182,7 +182,7 @@
                               </Label>
                               <ScrollPane minViewportHeight="245.0" prefHeight="229.0" prefWidth="1064.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" />
+                                    <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
                                  </content>
                               </ScrollPane>
                               <Label text="Favoritas" textFill="WHITE">
@@ -192,7 +192,7 @@
                               </Label>
                               <ScrollPane minViewportHeight="245.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" />
+                                    <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
                                  </content>
                               </ScrollPane>
                            </children>
@@ -212,7 +212,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="385.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgMusicCurrent" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../bin/img/faded.jpg" />
                      </image>
@@ -222,12 +222,12 @@
                   </ImageView>
                   <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="226.0">
                      <children>
-                        <Label prefHeight="27.0" prefWidth="186.0" text="Music Title" textFill="WHITE">
+                        <Label fx:id="lbMusicCurrent" prefHeight="27.0" prefWidth="186.0" text="Music Title" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="27.0" prefWidth="186.0" text="Artists names" textFill="WHITE">
+                        <Label fx:id="lbArtistCurrent" prefHeight="27.0" prefWidth="186.0" text="Artists names" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -251,17 +251,17 @@
                               <Image url="@../bin/img/ic_shuffle.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btPrevius" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_skip_to_start.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btPlay" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_play.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btNext" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_end.png" />
                            </image>
@@ -275,13 +275,13 @@
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <Label prefHeight="21.0" prefWidth="77.0" text="0:00" textFill="WHITE">
+                        <Label fx:id="lbCurrentTime" alignment="CENTER" prefHeight="21.0" prefWidth="77.0" text="0:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Slider prefHeight="83.0" prefWidth="543.0" HBox.hgrow="ALWAYS" />
-                        <Label prefHeight="21.0" prefWidth="88.0" text="0:00" textFill="WHITE">
+                        <JFXSlider fx:id="sldSongProgressBar" max="1.0" prefHeight="66.0" prefWidth="578.0" styleClass="timeSongSlider" value="0.001" />
+                        <Label fx:id="lbMaxTime" alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="0:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -303,7 +303,7 @@
                         <Image url="@../bin/img/ic_volume.png" />
                      </image>
                   </ImageView>
-                  <Slider />
+                  <JFXSlider id="volume" fx:id="sldVolume" styleClass="sliderVolume" value="50.0" />
                </children>
             </HBox>
          </children>

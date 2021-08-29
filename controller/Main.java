@@ -13,6 +13,9 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
+
+        //ButtonsController maiController = root.getCl;
+
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         window.setTitle("Spotify Jr");
