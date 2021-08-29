@@ -27,8 +27,8 @@ public class MediaPlayerModel extends Observable {
     private int numberSong = 0;
     private Timer timer;
     private TimerTask task;
-    private boolean playing;
-    private double currentSliderBar, currentTime, endTime;
+    private boolean playing, mute = false;
+    private double currentSliderBar, currentTime, endTime, currentVolume = 50.0;
 
     public MediaPlayerModel() {
 
@@ -64,6 +64,14 @@ public class MediaPlayerModel extends Observable {
         return paths;
     }
 
+    public boolean isMute() {
+        return mute;
+    }
+
+    public void setMute(boolean mute) {
+        this.mute = mute;
+    }
+
     public List<Song> getGlobalLibrayMusics() {
         return globalLibrayMusics;
     }
@@ -87,6 +95,11 @@ public class MediaPlayerModel extends Observable {
         return currentTime;
     }
 
+    public double getCurrentVolume() {
+
+        return currentVolume;
+    }
+
     public void setCurrentTime(double currentTime) {
         this.currentTime = currentTime;
     }
@@ -101,6 +114,7 @@ public class MediaPlayerModel extends Observable {
             pause();
         } else {
             mediaPlayerMp3.play();
+            setVolume(currentVolume);
             playing = true;
             beginTimer();
         }
@@ -178,7 +192,12 @@ public class MediaPlayerModel extends Observable {
         }
     }
 
+    public void muteVolume(double volume) {
+        mediaPlayerMp3.setVolume(volume);
+    }
+
     public void setVolume(double volume) {
+        this.currentVolume = volume;
         mediaPlayerMp3.setVolume(volume * 0.01); // multiplicado por 0.01 para simular a %
     }
 
@@ -197,15 +216,13 @@ public class MediaPlayerModel extends Observable {
                 setChanged();
                 notifyObservers();
 
-                System.out.println(String.format("%.2f", currentTime));
-
                 if (currentSliderBar == 1) {
                     cancelTimer();
                 }
             }
         };
 
-        timer.scheduleAtFixedRate(task, 1000, 1000); // Define-se a quatidade de incremento da progress bar
+        timer.scheduleAtFixedRate(task, 0, 1000); // Define-se a quatidade de incremento da progress bar
 
     }
 

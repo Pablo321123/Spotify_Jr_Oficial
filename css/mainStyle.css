@@ -150,6 +150,56 @@ Label:hover {
     -fx-stroke: transparent;
 }
 
+.play-button:hover {
+    -fx-scale-x: 1.1px;
+    -fx-scale-y: 1.1px
+}
+
+.button-next {
+    -fx-image: url("../bin/img/skip-next.png");
+    -fx-width: 20;
+    -fx-height: 20;
+}
+
+.button-next:hover {
+    -fx-image: url("../bin/img/skip-next-activate.png");
+}
+
+.button-previus {
+    -fx-image: url("../bin/img/skip-previous.png");
+    -fx-width: 20;
+    -fx-height: 20;
+}
+
+.button-previus:hover {
+    -fx-image: url("../bin/img/skip-previous-activate.png");
+}
+
+.jfx-button {
+    -jfx-button-type: FLAT;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../bin/img/ic_play_card.png");
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+}
+
+
+/*Raised button example */
+
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+
+/* #imageCard {
+    -fx-background-image: url("../bin/img/faded.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1000 700;
+    -fx-background-position: center center;
+} */
+
 
 /* 
 #lbInicio:hover {

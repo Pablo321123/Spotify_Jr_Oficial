@@ -246,27 +246,27 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
                      <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_shuffle.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="btPrevius" fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btPrevius" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="button-previus">
                            <image>
                               <Image url="@../bin/img/ic_skip_to_start.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="btPlay" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btPlay" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="play-button">
                            <image>
                               <Image url="@../bin/img/ic_play.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="btNext" fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="btNext" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="button-next">
                            <image>
                               <Image url="@../bin/img/ic_end.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_repeat.png" />
                            </image>
@@ -277,13 +277,13 @@
                      <children>
                         <Label fx:id="lbCurrentTime" alignment="CENTER" prefHeight="21.0" prefWidth="77.0" text="0:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="10.0" />
                            </font>
                         </Label>
-                        <JFXSlider fx:id="sldSongProgressBar" max="1.0" prefHeight="66.0" prefWidth="578.0" styleClass="timeSongSlider" value="0.001" />
+                        <JFXSlider fx:id="sldSongProgressBar" blockIncrement="0.0" max="1.0" prefHeight="66.0" prefWidth="578.0" styleClass="timeSongSlider" value="0.001" />
                         <Label fx:id="lbMaxTime" alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="0:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="10.0" />
                            </font>
                         </Label>
                      </children>
@@ -291,19 +291,19 @@
                </children>
             </VBox>
             <Pane prefHeight="100.0" prefWidth="22.0" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="272.0" spacing="20.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="272.0" spacing="10.0">
                <children>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../bin/img/ic_playlist.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btAudio" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../bin/img/ic_volume.png" />
+                        <Image url="@../bin/img/volume-medium.png" />
                      </image>
                   </ImageView>
-                  <JFXSlider id="volume" fx:id="sldVolume" styleClass="sliderVolume" value="50.0" />
+                  <JFXSlider id="volume" fx:id="sldVolume" blockIncrement="0.0" styleClass="sliderVolume" value="50.0" />
                </children>
             </HBox>
          </children>

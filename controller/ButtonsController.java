@@ -65,6 +65,9 @@ public class ButtonsController implements Initializable, Observer {
     private Label lbMaxTime;
 
     @FXML
+    private ImageView btAudio;
+
+    @FXML
     private JFXSlider sldVolume;
 
     private MainModel mainModelo;
@@ -74,6 +77,8 @@ public class ButtonsController implements Initializable, Observer {
     private List<Song> listFavoritesSong;
 
     private String endTime;
+
+    private boolean isPause = false;
 
     private int teste;
 
@@ -115,6 +120,14 @@ public class ButtonsController implements Initializable, Observer {
         }
 
         btPlay.setOnMouseClicked(arg0 -> {
+            if (isPause) {
+                btPlay.setImage(new Image("bin/img/ic_play.png"));
+                isPause = false;
+            } else {
+                btPlay.setImage(new Image("bin/img/ic_pause.png"));
+                isPause = true;
+            }
+
             mediaPlayerModelo.play();
         });
 
@@ -125,10 +138,38 @@ public class ButtonsController implements Initializable, Observer {
             mediaPlayerModelo.previus();
         });
 
+        btAudio.setOnMouseClicked(arg0 -> {
+            boolean mute = mediaPlayerModelo.isMute();
+
+            if (!mute) {
+                mediaPlayerModelo.muteVolume(0);
+                sldVolume.setValue(0);
+                mediaPlayerModelo.setMute(true);
+            } else {
+                double volume = mediaPlayerModelo.getCurrentVolume();
+                mediaPlayerModelo.muteVolume(volume);
+                sldVolume.setValue(volume);
+                mediaPlayerModelo.setMute(false);
+            }
+        });
+
         sldVolume.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+
                 mediaPlayerModelo.setVolume(sldVolume.getValue());
+                mediaPlayerModelo.setMute(false);
+
+                if (sldVolume.getValue() == 0) {
+                    btAudio.setImage(new Image("bin/img/volume-off.png"));
+                    mediaPlayerModelo.setMute(true);
+                } else if (sldVolume.getValue() < 25) {
+                    btAudio.setImage(new Image("bin/img/volume-low.png"));
+                } else if (sldVolume.getValue() < 75) {
+                    btAudio.setImage(new Image("bin/img/volume-medium.png"));
+                } else {
+                    btAudio.setImage(new Image("bin/img/volume-high.png"));
+                }
             }
         });
     }
@@ -145,7 +186,8 @@ public class ButtonsController implements Initializable, Observer {
                 lbArtistCurrent.setText(currentTrack.getArtist());
                 sldSongProgressBar.setValue(mediaPlayerModelo.getTimeSliderBarCurrent());
                 int segundos = (int) mediaPlayerModelo.getCurrentTime() % 60;
-                String textoTime = String.format("%d:%d", (int) (mediaPlayerModelo.getCurrentTime() / 60), segundos);
+                String textoTime = String.format("%d:" + (segundos < 10 ? "0" : "") + "%d",
+                        (int) (mediaPlayerModelo.getCurrentTime() / 60), segundos);
                 lbCurrentTime.setText(textoTime);
                 textoTime = String.format("%.2f", mediaPlayerModelo.getEndTime() / 60).replace(",", ":");
                 lbMaxTime.setText(textoTime.equalsIgnoreCase("Nan") ? "0:00" : textoTime);
