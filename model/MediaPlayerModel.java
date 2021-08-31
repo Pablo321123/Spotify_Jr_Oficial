@@ -28,7 +28,7 @@ public class MediaPlayerModel extends Observable {
     private Timer timer;
     private TimerTask task;
     private boolean playing, mute = false;
-    private double currentSliderBar, currentTime, endTime, currentVolume = 50.0;
+    private double currentTime, endTime, currentVolume = 50.0; // currentSliderBar
 
     public MediaPlayerModel() {
 
@@ -51,6 +51,14 @@ public class MediaPlayerModel extends Observable {
         media = new Media(musicPacth); // Foi preciso adicionar o seguinte trecho : --add-modules
         mediaPlayerMp3 = new MediaPlayer(media); // javafx.controls,javafx.media no modulo do programa
 
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 
     public List<String> getPathsMusics() {
@@ -86,9 +94,9 @@ public class MediaPlayerModel extends Observable {
         return currentMusic;
     }
 
-    public double getTimeSliderBarCurrent() {
-        return currentSliderBar;
-    }
+    // public double getTimeSliderBarCurrent() {
+    // return currentSliderBar;
+    // }
 
     public double getCurrentTime() {
 
@@ -101,7 +109,13 @@ public class MediaPlayerModel extends Observable {
     }
 
     public void setCurrentTime(double currentTime) {
+
         this.currentTime = currentTime;
+        mediaPlayerMp3.stop();
+        mediaPlayerMp3 = new MediaPlayer(media);
+        playing = false;
+        mediaPlayerMp3.setStartTime(Duration.seconds(currentTime));
+        play();
     }
 
     public double getEndTime() {
@@ -131,11 +145,11 @@ public class MediaPlayerModel extends Observable {
 
     public void previus() {
 
-        currentSliderBar = 0;
+        currentTime = 0;
 
         double segundos = mediaPlayerMp3.getCurrentTime().toSeconds();
         if (segundos > 2.0) {
-            mediaPlayerMp3.seek(Duration.seconds(0));
+            restartMusic();
         } else {
             if (playing) {
                 cancelTimer();
@@ -155,7 +169,7 @@ public class MediaPlayerModel extends Observable {
         if (playing) {
             cancelTimer();
         }
-        currentSliderBar = 0;
+        currentTime = 0;
 
         if (numberSong < songs.size() - 1) {
             numberSong++;
@@ -177,9 +191,18 @@ public class MediaPlayerModel extends Observable {
         mediaPlayerMp3 = new MediaPlayer(media);
     }
 
-    public void reestartMusic() {
-        currentSliderBar = 0;
-        mediaPlayerMp3.seek(Duration.seconds(0));
+    public void setMusic(Song song) {
+        mediaPlayerMp3.stop();
+        playing = false;
+        numberSong = globalLibrayMusics.indexOf(song);
+        media = new Media(song.getPath());
+        mediaPlayerMp3 = new MediaPlayer(media);
+        play();
+    }
+
+    public void restartMusic() {
+        currentTime = 0;
+        setCurrentTime(currentTime);
     }
 
     private void addMusicLibrary() {
@@ -212,12 +235,13 @@ public class MediaPlayerModel extends Observable {
                 currentTime = mediaPlayerMp3.getCurrentTime().toSeconds();
                 endTime = media.getDuration().toSeconds();
 
-                currentSliderBar = currentTime / endTime;
+                // currentSliderBar = currentTime / endTime;
                 setChanged();
                 notifyObservers();
 
-                if (currentSliderBar == 1) {
+                if (currentTime == endTime) {
                     cancelTimer();
+                    next();
                 }
             }
         };

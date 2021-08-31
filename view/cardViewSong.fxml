@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="imageCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="200.0" spacing="5.0" styleClass="primary_color" stylesheets="@../css/mainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SongController">
+<VBox id="imageCard" fx:id="vbCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="200.0" spacing="5.0" styleClass="primary_color" stylesheets="@../css/mainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SongController">
    <children>
       <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" smooth="false">
          <image>
@@ -31,7 +30,14 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </VBox>
-            <JFXButton fx:id="btPlayCard" minHeight="48.0" minWidth="48.0" textFill="#49b242" HBox.hgrow="ALWAYS" />
+            <ImageView fx:id="btPlayCard" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="play-button" visible="false">
+               <image>
+                  <Image url="@../bin/img/ic_play_card.png" />
+               </image>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
          <VBox.margin>
             <Insets right="10.0" />

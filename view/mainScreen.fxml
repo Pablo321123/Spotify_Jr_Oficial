@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -28,7 +30,7 @@
             </ImageView>
             <VBox prefHeight="159.0" prefWidth="235.0" spacing="10.0">
                <children>
-                  <HBox id="navegadorPrincipal1" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" styleClass="selected" stylesheets="@../css/mainStyle.css">
+                  <HBox id="navegadorPrincipal1" fx:id="btInicio" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" styleClass="selected" stylesheets="@../css/mainStyle.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="imagem1" />
                         <Label id="lbInicio" prefHeight="27.0" prefWidth="135.0" stylesheets="@../css/mainStyle.css" text="Início" textFill="#a1a1a1">
@@ -38,7 +40,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
+                  <HBox fx:id="btProcurar" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -52,7 +54,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
+                  <HBox fx:id="btBiblioteca" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -102,110 +104,124 @@
       </VBox>
    </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="1028.0" spacing="20.0" BorderPane.alignment="CENTER">
+      <StackPane styleClass="secondary_color" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1080.0" spacing="20.0">
+            <VBox fx:id="vbInicio" prefHeight="200.0" prefWidth="1028.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER_LEFT">
+                  <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1080.0" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../bin/img/ic_back.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../bin/img/ic_forward.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="search-container" stylesheets="@../css/mainStyle.css">
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../bin/img/ic_search.png" />
-                           </image>
-                        </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="176.0" promptText="Artistas ou músicas " style="-fx-background-color: transparent;" />
-                     </children>
-                  </HBox>
-                  <Pane prefHeight="56.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" styleClass="upgrade_button" stylesheets="@../css/mainStyle.css" text="UPGRADE" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <HBox alignment="CENTER" prefHeight="56.0" prefWidth="290.0" spacing="10.0">
-                     <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../bin/img/user.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="17.0" prefWidth="142.0" text="UserName" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
-            <VBox spacing="20.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
-                           <image>
-                              <Image url="@../bin/img/Spotify_banner_2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
-                     <content>
-                        <VBox prefHeight="558.0" prefWidth="1064.0" spacing="10.0">
+                        <HBox alignment="CENTER_LEFT">
                            <children>
-                              <Label text="Tocada Recentemente" textFill="WHITE">
+                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../bin/img/ic_back.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../bin/img/ic_forward.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="250.0" styleClass="search-container" stylesheets="@../css/mainStyle.css">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../bin/img/ic_search.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField prefHeight="25.0" prefWidth="176.0" promptText="Artistas ou músicas " style="-fx-background-color: transparent;" />
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="56.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" styleClass="upgrade_button" stylesheets="@../css/mainStyle.css" text="UPGRADE" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <HBox alignment="CENTER" prefHeight="56.0" prefWidth="290.0" spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../bin/img/user.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="17.0" prefWidth="142.0" text="UserName" textFill="WHITE">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Label>
-                              <ScrollPane minViewportHeight="245.0" prefHeight="229.0" prefWidth="1064.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                                 <content>
-                                    <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
-                                 </content>
-                              </ScrollPane>
-                              <Label text="Favoritas" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <ScrollPane minViewportHeight="245.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                                 <content>
-                                    <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
-                                 </content>
-                              </ScrollPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../bin/img/Spotify_banner_2.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </VBox>
-                     </content>
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </ScrollPane>
+                        <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox prefHeight="558.0" prefWidth="1064.0" spacing="10.0">
+                                 <children>
+                                    <Label text="Tocada Recentemente" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ScrollPane minViewportHeight="245.0" prefHeight="229.0" prefWidth="1064.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                       <content>
+                                          <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                       </content>
+                                    </ScrollPane>
+                                    <Label text="Favoritas" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ScrollPane minViewportHeight="245.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                       <content>
+                                          <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </content>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox fx:id="vbProcurar" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Button mnemonicParsing="false" text="Button" />
+               </children>
+            </VBox>
+            <VBox fx:id="vbBiblioteca" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <JFXToggleButton />
                </children>
             </VBox>
          </children>
-      </VBox>
+      </StackPane>
    </center>
    <bottom>
       <HBox prefHeight="100.0" prefWidth="1315.0" style="-fx-background-color: #181818;" BorderPane.alignment="CENTER">
@@ -244,7 +260,7 @@
             <Pane prefHeight="100.0" prefWidth="27.0" HBox.hgrow="ALWAYS" />
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="681.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="667.0" spacing="25.0">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -280,7 +296,7 @@
                               <Font size="10.0" />
                            </font>
                         </Label>
-                        <JFXSlider fx:id="sldSongProgressBar" blockIncrement="0.0" max="1.0" prefHeight="66.0" prefWidth="578.0" styleClass="timeSongSlider" value="0.001" />
+                        <JFXSlider fx:id="sldSongProgressBar" blockIncrement="0.0" max="1.0" prefHeight="66.0" prefWidth="546.0" styleClass="timeSongSlider" value="0.001" />
                         <Label fx:id="lbMaxTime" alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="0:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="10.0" />

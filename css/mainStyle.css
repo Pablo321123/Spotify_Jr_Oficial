@@ -91,6 +91,11 @@ Label:hover {
     -fx-background-color: transparent;
 }
 
+.scroll-bar>.increment-button:hover,
+.scroll-bar>.decrement-button:hover {
+    -fx-background-color: transparent;
+}
+
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
     -fx-background-color: #87878785;
@@ -175,7 +180,8 @@ Label:hover {
     -fx-image: url("../bin/img/skip-previous-activate.png");
 }
 
-.jfx-button {
+
+/* .jfx-button {
     -jfx-button-type: FLAT;
     -fx-background-color: transparent;
     -fx-background-image: url("../bin/img/ic_play_card.png");
@@ -186,11 +192,12 @@ Label:hover {
 
 /*Raised button example */
 
-.jfx-button {
+
+/*.jfx-button {
     -jfx-button-type: RAISED;
     -fx-background-color: transparent;
     -fx-text-fill: white;
-}
+} */
 
 
 /* #imageCard {
