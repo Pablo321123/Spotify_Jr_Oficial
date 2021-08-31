@@ -32,10 +32,28 @@ import model.Song;
 public class ButtonsController implements Initializable, Observer {
 
     @FXML
+    private HBox btInicio;
+
+    @FXML
+    private HBox btProcurar;
+
+    @FXML
+    private HBox btBiblioteca;
+
+    @FXML
+    private VBox vbInicio;
+
+    @FXML
     private HBox recentlyPlayedCard;
 
     @FXML
     private HBox favoriteSongsCard;
+
+    @FXML
+    private VBox vbProcurar;
+
+    @FXML
+    private VBox vbBiblioteca;
 
     @FXML
     private ImageView imgMusicCurrent;
@@ -99,7 +117,7 @@ public class ButtonsController implements Initializable, Observer {
 
                 VBox vbox = loadCard.load();
                 SongController sc = loadCard.getController();
-                sc.setData(song);
+                sc.setData(song, mediaPlayerModelo);
 
                 recentlyPlayedCard.getChildren().add(vbox);
 
@@ -111,7 +129,7 @@ public class ButtonsController implements Initializable, Observer {
 
                 VBox vbox = loadCard.load();
                 SongController sc = loadCard.getController();
-                sc.setData(song);
+                sc.setData(song, mediaPlayerModelo);
 
                 favoriteSongsCard.getChildren().add(vbox);
             }
@@ -120,7 +138,7 @@ public class ButtonsController implements Initializable, Observer {
         }
 
         btPlay.setOnMouseClicked(arg0 -> {
-            if (isPause) {
+            if (!mediaPlayerModelo.isPlaying()) {
                 btPlay.setImage(new Image("bin/img/ic_play.png"));
                 isPause = false;
             } else {
@@ -172,6 +190,70 @@ public class ButtonsController implements Initializable, Observer {
                 }
             }
         });
+
+        sldSongProgressBar.setOnMouseClicked(arg0 -> {
+            mediaPlayerModelo.setCurrentTime(sldSongProgressBar.getValue());
+        });
+
+        sldSongProgressBar.setOnMouseDragged(arg0 -> {
+            mediaPlayerModelo.cancelTimer();
+        });
+
+        btInicio.setOnMouseClicked(arg0 -> {
+            vbInicio.toFront();
+            vbInicio.setVisible(true);
+
+            btInicio.getStyleClass().add("selected");
+            btProcurar.getStyleClass().remove("selected");
+            btBiblioteca.getStyleClass().remove("selected");
+
+            vbProcurar.toBack();
+            vbProcurar.setVisible(false);
+
+            vbBiblioteca.toBack();
+            vbBiblioteca.setVisible(false);
+        });
+
+        btProcurar.setOnMouseClicked(arg0 -> {
+            vbInicio.toBack();
+            vbInicio.setVisible(false);
+
+            btInicio.getStyleClass().remove("selected");
+            btProcurar.getStyleClass().add("selected");
+            btBiblioteca.getStyleClass().remove("selected");
+
+            vbProcurar.toFront();
+            vbProcurar.setVisible(true);
+
+            vbBiblioteca.toBack();
+            vbBiblioteca.setVisible(false);
+        });
+
+        btBiblioteca.setOnMouseClicked(arg0 -> {
+            vbInicio.toBack();
+            vbInicio.setVisible(false);
+
+            btInicio.getStyleClass().remove("selected");
+            btProcurar.getStyleClass().remove("selected");
+            btBiblioteca.getStyleClass().add("selected");
+
+            vbProcurar.toBack();
+            vbProcurar.setVisible(false);
+
+            vbBiblioteca.toFront();
+            vbBiblioteca.setVisible(true);
+        });
+
+        // sldSongProgressBar.valueProperty().addListener(new ChangeListener<Number>(){
+
+        // @Override
+        // public void changed(ObservableValue<? extends Number> arg0, Number arg1,
+        // Number arg2) {
+        // }
+        // });
+        // sldSongProgressBar.setOnMouseExited(arg0 -> {
+        // mediaPlayerModelo.beginTimer();
+        // });
     }
 
     @Override
@@ -181,16 +263,27 @@ public class ButtonsController implements Initializable, Observer {
             @Override
             public void run() {
                 Song currentTrack = mediaPlayerModelo.getCurrentTrack();
+
                 imgMusicCurrent.setImage(new Image(getClass().getResourceAsStream(currentTrack.getAlbumImage())));
                 lbMusicCurrent.setText(currentTrack.getTitleMusic());
                 lbArtistCurrent.setText(currentTrack.getArtist());
-                sldSongProgressBar.setValue(mediaPlayerModelo.getTimeSliderBarCurrent());
+
+                sldSongProgressBar.setMax(mediaPlayerModelo.getEndTime());
                 int segundos = (int) mediaPlayerModelo.getCurrentTime() % 60;
+
+                sldSongProgressBar.setValue(mediaPlayerModelo.getCurrentTime()); // Fazer um ouvinte para atualizar os
+                                                                                 // labels
                 String textoTime = String.format("%d:" + (segundos < 10 ? "0" : "") + "%d",
                         (int) (mediaPlayerModelo.getCurrentTime() / 60), segundos);
                 lbCurrentTime.setText(textoTime);
-                textoTime = String.format("%.2f", mediaPlayerModelo.getEndTime() / 60).replace(",", ":");
+                textoTime = String.format("%.2f", mediaPlayerModelo.getEndTime() / 60).replace(",", ":"); //
                 lbMaxTime.setText(textoTime.equalsIgnoreCase("Nan") ? "0:00" : textoTime);
+
+                if (!mediaPlayerModelo.isPlaying()) {
+                    btPlay.setImage(new Image("bin/img/ic_play.png"));
+                } else {
+                    btPlay.setImage(new Image("bin/img/ic_pause.png"));
+                }
             }
         });
 
