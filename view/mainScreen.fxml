@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="lbInicio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="-Infinity" prefWidth="1315.0" styleClass="secondary_color" stylesheets="@../css/mainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ButtonsController">
+<BorderPane id="lbInicio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="-Infinity" prefWidth="1315.0" styleClass="secondary_color" stylesheets="@../css/mainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ButtonsController">
    <left>
       <VBox prefHeight="200.0" prefWidth="235.0" spacing="20.0" styleClass="primary_color" stylesheets="@../css/mainStyle.css" BorderPane.alignment="CENTER">
          <children>
@@ -106,7 +106,7 @@
    <center>
       <StackPane styleClass="secondary_color" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="vbInicio" prefHeight="200.0" prefWidth="1028.0" spacing="20.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1080.0" spacing="20.0">
                      <children>
@@ -139,7 +139,7 @@
                                     <Image url="@../bin/img/ic_search.png" />
                                  </image>
                               </ImageView>
-                              <TextField prefHeight="25.0" prefWidth="176.0" promptText="Artistas ou músicas " style="-fx-background-color: transparent;" />
+                              <TextField fx:id="txtPesquisar" prefHeight="25.0" prefWidth="176.0" promptText="Artistas ou músicas " style="-fx-background-color: transparent;" />
                            </children>
                         </HBox>
                         <Pane prefHeight="56.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
@@ -164,60 +164,84 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                  <StackPane prefHeight="150.0" prefWidth="1080.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox fx:id="vbBiblioteca" prefHeight="200.0" prefWidth="100.0" visible="false">
                            <children>
-                              <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
-                                 <image>
-                                    <Image url="@../bin/img/Spotify_banner_2.png" />
-                                 </image>
-                              </ImageView>
+                              <JFXToggleButton />
                            </children>
                         </VBox>
-                        <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
-                           <content>
-                              <VBox prefHeight="558.0" prefWidth="1064.0" spacing="10.0">
+                        <VBox fx:id="vbProcurar" prefHeight="200.0" prefWidth="100.0" visible="false">
+                           <children>
+                              <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label text="Tocada Recentemente" textFill="WHITE">
+                                    <Label text="Musicas" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <ScrollPane minViewportHeight="245.0" prefHeight="229.0" prefWidth="1064.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                    <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                                        <content>
-                                          <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
-                                       </content>
-                                    </ScrollPane>
-                                    <Label text="Favoritas" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <ScrollPane minViewportHeight="245.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                                       <content>
-                                          <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                          <HBox fx:id="hbSearchsMusics" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
                                        </content>
                                     </ScrollPane>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" />
+                                 </padding>
                               </VBox>
-                           </content>
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </ScrollPane>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="vbInicio" prefHeight="200.0" prefWidth="1028.0" spacing="20.0">
+                           <children>
+                              <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
+                                             <image>
+                                                <Image url="@../bin/img/Spotify_banner_2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                    <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                       <content>
+                                          <VBox prefHeight="558.0" prefWidth="1064.0" spacing="10.0">
+                                             <children>
+                                                <Label text="Tocada Recentemente" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ScrollPane minViewportHeight="245.0" prefHeight="229.0" prefWidth="1064.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                                   <content>
+                                                      <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                                   </content>
+                                                </ScrollPane>
+                                                <Label text="Favoritas" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ScrollPane minViewportHeight="245.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                                   <content>
+                                                      <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox fx:id="vbProcurar" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-               </children>
-            </VBox>
-            <VBox fx:id="vbBiblioteca" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <JFXToggleButton />
+                  </StackPane>
                </children>
             </VBox>
          </children>
@@ -250,7 +274,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="loved-button">
                      <image>
                         <Image url="@../bin/img/ic_love.png" />
                      </image>

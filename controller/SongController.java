@@ -60,7 +60,7 @@ public class SongController {
         });
 
         vbCard.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
-            if (!mpm.getCurrentTrack().getTitleMusic().equals(song.getTitleMusic()))
+            // if (!mpm.getCurrentTrack().getTitleMusic().equals(song.getTitleMusic()))
                 btPlayCard.setVisible(false);
         });
 

@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -41,6 +42,18 @@ public class ButtonsController implements Initializable, Observer {
     private HBox btBiblioteca;
 
     @FXML
+    private TextField txtPesquisar;
+
+    @FXML
+    private VBox vbBiblioteca;
+
+    @FXML
+    private VBox vbProcurar;
+
+    @FXML
+    private HBox hbSearchsMusics;
+
+    @FXML
     private VBox vbInicio;
 
     @FXML
@@ -48,12 +61,6 @@ public class ButtonsController implements Initializable, Observer {
 
     @FXML
     private HBox favoriteSongsCard;
-
-    @FXML
-    private VBox vbProcurar;
-
-    @FXML
-    private VBox vbBiblioteca;
 
     @FXML
     private ImageView imgMusicCurrent;
@@ -93,6 +100,7 @@ public class ButtonsController implements Initializable, Observer {
 
     private List<Song> listRecentlyPlayed;
     private List<Song> listFavoritesSong;
+    private List<Song> tempList;
 
     private String endTime;
 
@@ -109,67 +117,18 @@ public class ButtonsController implements Initializable, Observer {
 
         listRecentlyPlayed = new ArrayList<Song>(mainModelo.getRecentlyPlayed(mediaPlayerModelo));
         listFavoritesSong = new ArrayList<Song>(mainModelo.getFavorites(mediaPlayerModelo));
+        tempList = new ArrayList<Song>(mainModelo.searchSongs("", mediaPlayerModelo));
 
-        try {
-            for (Song song : listRecentlyPlayed) {
-                FXMLLoader loadCard = new FXMLLoader();
-                loadCard.setLocation(getClass().getResource("/view/cardViewSong.fxml"));
+        addCardSong(recentlyPlayedCard, listRecentlyPlayed);
+        addCardSong(favoriteSongsCard, listFavoritesSong);
+        addCardSong(hbSearchsMusics, tempList);
 
-                VBox vbox = loadCard.load();
-                SongController sc = loadCard.getController();
-                sc.setData(song, mediaPlayerModelo);
+        buttonsEvents();
+        sliderEvents();
+        textFieldsEvents();
+    }
 
-                recentlyPlayedCard.getChildren().add(vbox);
-
-            }
-
-            for (Song song : listFavoritesSong) {
-                FXMLLoader loadCard = new FXMLLoader();
-                loadCard.setLocation(getClass().getResource("/view/cardViewSong.fxml"));
-
-                VBox vbox = loadCard.load();
-                SongController sc = loadCard.getController();
-                sc.setData(song, mediaPlayerModelo);
-
-                favoriteSongsCard.getChildren().add(vbox);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        btPlay.setOnMouseClicked(arg0 -> {
-            if (!mediaPlayerModelo.isPlaying()) {
-                btPlay.setImage(new Image("bin/img/ic_play.png"));
-                isPause = false;
-            } else {
-                btPlay.setImage(new Image("bin/img/ic_pause.png"));
-                isPause = true;
-            }
-
-            mediaPlayerModelo.play();
-        });
-
-        btNext.setOnMouseClicked(arg0 -> {
-            mediaPlayerModelo.next();
-        });
-        btPrevius.setOnMouseClicked(arg0 -> {
-            mediaPlayerModelo.previus();
-        });
-
-        btAudio.setOnMouseClicked(arg0 -> {
-            boolean mute = mediaPlayerModelo.isMute();
-
-            if (!mute) {
-                mediaPlayerModelo.muteVolume(0);
-                sldVolume.setValue(0);
-                mediaPlayerModelo.setMute(true);
-            } else {
-                double volume = mediaPlayerModelo.getCurrentVolume();
-                mediaPlayerModelo.muteVolume(volume);
-                sldVolume.setValue(volume);
-                mediaPlayerModelo.setMute(false);
-            }
-        });
+    private void sliderEvents() {
 
         sldVolume.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -197,6 +156,55 @@ public class ButtonsController implements Initializable, Observer {
 
         sldSongProgressBar.setOnMouseDragged(arg0 -> {
             mediaPlayerModelo.cancelTimer();
+        });
+
+        // sldSongProgressBar.valueProperty().addListener(new ChangeListener<Number>(){
+
+        // @Override
+        // public void changed(ObservableValue<? extends Number> arg0, Number arg1,
+        // Number arg2) {
+        // }
+        // });
+        // sldSongProgressBar.setOnMouseExited(arg0 -> {
+        // mediaPlayerModelo.beginTimer();
+        // });
+    }
+
+    private void buttonsEvents() {
+
+        btPlay.setOnMouseClicked(arg0 -> {
+            if (!mediaPlayerModelo.isPlaying()) {
+                btPlay.setImage(new Image("bin/img/ic_play.png"));
+                isPause = false;
+            } else {
+                btPlay.setImage(new Image("bin/img/ic_pause.png"));
+                isPause = true;
+            }
+
+            mediaPlayerModelo.play();
+        });
+
+        btNext.setOnMouseClicked(arg0 -> {
+            mediaPlayerModelo.next();
+        });
+
+        btPrevius.setOnMouseClicked(arg0 -> {
+            mediaPlayerModelo.previus();
+        });
+
+        btAudio.setOnMouseClicked(arg0 -> {
+            boolean mute = mediaPlayerModelo.isMute();
+
+            if (!mute) {
+                mediaPlayerModelo.muteVolume(0);
+                sldVolume.setValue(0);
+                mediaPlayerModelo.setMute(true);
+            } else {
+                double volume = mediaPlayerModelo.getCurrentVolume();
+                mediaPlayerModelo.muteVolume(volume);
+                sldVolume.setValue(volume);
+                mediaPlayerModelo.setMute(false);
+            }
         });
 
         btInicio.setOnMouseClicked(arg0 -> {
@@ -244,16 +252,34 @@ public class ButtonsController implements Initializable, Observer {
             vbBiblioteca.setVisible(true);
         });
 
-        // sldSongProgressBar.valueProperty().addListener(new ChangeListener<Number>(){
+    }
 
-        // @Override
-        // public void changed(ObservableValue<? extends Number> arg0, Number arg1,
-        // Number arg2) {
-        // }
-        // });
-        // sldSongProgressBar.setOnMouseExited(arg0 -> {
-        // mediaPlayerModelo.beginTimer();
-        // });
+    private void textFieldsEvents() {
+
+        txtPesquisar.textProperty().addListener((observable, oldValue, newValue) -> {
+            tempList = new ArrayList<Song>(mainModelo.searchSongs(newValue, mediaPlayerModelo));
+            hbSearchsMusics.getChildren().clear();
+            addCardSong(hbSearchsMusics, tempList);
+        });
+
+    }
+
+    private void addCardSong(HBox hbTarget, List<Song> list) {
+        try {
+            for (Song song : list) {
+                FXMLLoader loadCard = new FXMLLoader();
+                loadCard.setLocation(getClass().getResource("/view/cardViewSong.fxml"));
+
+                VBox vbox = loadCard.load();
+                SongController sc = loadCard.getController();
+                sc.setData(song, mediaPlayerModelo);
+
+                hbTarget.getChildren().add(vbox);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
