@@ -1,14 +1,17 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainModel {
 
     // private List<Song> listGlobalMusics;
     // private MediaPlayerModel mediaPlayerModelo;
+    private HashMap<String, List<Song>> playLists;
 
     public MainModel() {
+        playLists = new HashMap<String, List<Song>>();
         // this.mediaPlayerModelo = mediaPlayerModelo;
         // listGlobalMusics = mediaPlayerModelo.getGlobalLibrayMusics();
     }
@@ -48,6 +51,26 @@ public class MainModel {
         }
 
         return favoriteSongs;
+    }
+
+    public void addPlaylist(String name, List<Song> songs) {
+
+        playLists.put(name, songs);
+
+    }
+
+    public String[] getNameExistingPlaylist() {
+
+        String[] names = new String[playLists.size()];
+        int count = 0;
+
+        for (String key : playLists.keySet()) {
+            names[count++] = key;
+            System.out.println(key);
+        }
+
+        return names;
+
     }
 
 }

@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -61,7 +62,13 @@ public class SongController {
 
         vbCard.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
             // if (!mpm.getCurrentTrack().getTitleMusic().equals(song.getTitleMusic()))
-                btPlayCard.setVisible(false);
+            btPlayCard.setVisible(false);
+        });
+
+        vbCard.setOnMouseClicked(arg0 -> {
+            if (arg0.getButton() == MouseButton.SECONDARY) {
+                System.out.println("Adcionar a playlist " + song.getTitleMusic());
+            }
         });
 
     }

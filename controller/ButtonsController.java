@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSlider;
@@ -19,15 +20,21 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.MainModel;
 import model.MediaPlayerModel;
 import model.Song;
@@ -42,6 +49,9 @@ public class ButtonsController implements Initializable, Observer {
 
     @FXML
     private HBox btBiblioteca;
+
+    @FXML
+    private HBox btCriarPlaylist;
 
     @FXML
     private TextField txtPesquisar;
@@ -111,8 +121,6 @@ public class ButtonsController implements Initializable, Observer {
     private String endTime;
 
     private boolean isPause = false;
-
-    private int teste;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -256,6 +264,11 @@ public class ButtonsController implements Initializable, Observer {
                 btFavorite.setImage(new Image("bin/img/ic_love.png"));
             }
         });
+
+        btCriarPlaylist.setOnMouseClicked(arg0 -> {
+            modalPlaylist();
+        });
+
     }
 
     private void textFieldsEvents() {
@@ -334,6 +347,34 @@ public class ButtonsController implements Initializable, Observer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void modalPlaylist() {
+
+        // Alert alert = new Alert(AlertType.CONFIRMATION);
+        // alert.setTitle("Playlist");
+        // alert.setHeaderText("");
+        // alert.setContentText("Por favor, digite o nome da sua playlist: ");
+
+        // DialogPane dialogPlaylist = alert.getDialogPane();
+        // dialogPlaylist.getStylesheets().add(getClass().getResource("\\css\\mainStyle.css").toString());
+        // dialogPlaylist.getStyleClass().add("dialog-playlist");
+
+        TextInputDialog dialogPlaylist = new TextInputDialog("Nome da playlist");
+        dialogPlaylist.initOwner(null);
+        dialogPlaylist.initStyle(StageStyle.TRANSPARENT);
+        dialogPlaylist.setTitle("Playlist");
+        dialogPlaylist.setHeaderText("");
+        dialogPlaylist.setContentText("Por favor, digite o nome da sua playlist: ");
+
+        Optional<String> result = dialogPlaylist.showAndWait();
+
+        if (result.isPresent()) {
+            mainModelo.addPlaylist(result.get(), new ArrayList<Song>());
+        }
+
+        mainModelo.getNameExistingPlaylist();
+
     }
 
     @Override
