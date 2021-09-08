@@ -21,7 +21,8 @@ public class MainModel {
             list = allSongs;
         } else {
             for (Song song : allSongs) {
-                if(song.getArtist().toLowerCase().contains(name.toLowerCase()) || song.getTitleMusic().toLowerCase().contains(name.toLowerCase())){
+                if (song.getArtist().toLowerCase().contains(name.toLowerCase())
+                        || song.getTitleMusic().toLowerCase().contains(name.toLowerCase())) {
                     list.add(song);
                 }
             }
@@ -38,9 +39,15 @@ public class MainModel {
     }
 
     public List<Song> getFavorites(MediaPlayerModel mediaPlayerModelo) {
-        List<Song> list = mediaPlayerModelo.getGlobalLibrayMusics();
+        List<Song> favoriteSongs = new ArrayList<Song>();
 
-        return list;
+        for (Song song : mediaPlayerModelo.getGlobalLibrayMusics()) {
+            if (song.isFavorite()) {
+                favoriteSongs.add(song);
+            }
+        }
+
+        return favoriteSongs;
     }
 
 }

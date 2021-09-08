@@ -65,10 +65,6 @@ Label:hover {
     -fx-image: url("../bin/img/ic_love.png")
 }
 
-.loved-button:hover {
-    -fx-image: url("../bin/img/ic_love_hover.png")
-}
-
 .scroll-pane>.viewport {
     -fx-background-color: #121212
 }

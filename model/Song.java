@@ -5,12 +5,14 @@ public class Song {
     private String titleMusic;
     private String artist;
     private String path;
+    private boolean favorite;
 
     public Song() {
         albumImage = "";
         titleMusic = "";
         artist = "";
         path = "";
+        favorite = false;
     }
 
     public Song(String albumImage, String titleMusic, String artist, String path) {
@@ -18,6 +20,7 @@ public class Song {
         this.titleMusic = titleMusic;
         this.artist = artist;
         this.path = path;
+        this.favorite = false;
     }
 
     public String getAlbumImage() {
@@ -51,5 +54,15 @@ public class Song {
     public void setPath(String path) {
         this.path = path;
     }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    
 
 }

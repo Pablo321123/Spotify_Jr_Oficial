@@ -274,7 +274,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="loved-button">
+                  <ImageView fx:id="btFavorite" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="loved-button">
                      <image>
                         <Image url="@../bin/img/ic_love.png" />
                      </image>

@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,6 +24,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -72,6 +74,9 @@ public class ButtonsController implements Initializable, Observer {
     private Label lbArtistCurrent;
 
     @FXML
+    private ImageView btFavorite;
+
+    @FXML
     private ImageView btPrevius;
 
     @FXML
@@ -101,6 +106,7 @@ public class ButtonsController implements Initializable, Observer {
     private List<Song> listRecentlyPlayed;
     private List<Song> listFavoritesSong;
     private List<Song> tempList;
+    private HashMap<String, List<Song>> playLists;
 
     private String endTime;
 
@@ -208,50 +214,48 @@ public class ButtonsController implements Initializable, Observer {
         });
 
         btInicio.setOnMouseClicked(arg0 -> {
-            vbInicio.toFront();
-            vbInicio.setVisible(true);
-
-            btInicio.getStyleClass().add("selected");
-            btProcurar.getStyleClass().remove("selected");
-            btBiblioteca.getStyleClass().remove("selected");
-
-            vbProcurar.toBack();
-            vbProcurar.setVisible(false);
-
-            vbBiblioteca.toBack();
-            vbBiblioteca.setVisible(false);
+            if (!btInicio.getStyleClass().toString().equals("selected")) {
+                eventInicio();
+            }
         });
 
         btProcurar.setOnMouseClicked(arg0 -> {
-            vbInicio.toBack();
-            vbInicio.setVisible(false);
-
-            btInicio.getStyleClass().remove("selected");
-            btProcurar.getStyleClass().add("selected");
-            btBiblioteca.getStyleClass().remove("selected");
-
-            vbProcurar.toFront();
-            vbProcurar.setVisible(true);
-
-            vbBiblioteca.toBack();
-            vbBiblioteca.setVisible(false);
+            if (!btProcurar.getStyleClass().toString().equals("selected")) {
+                eventProcurar();
+            }
         });
 
         btBiblioteca.setOnMouseClicked(arg0 -> {
-            vbInicio.toBack();
-            vbInicio.setVisible(false);
-
-            btInicio.getStyleClass().remove("selected");
-            btProcurar.getStyleClass().remove("selected");
-            btBiblioteca.getStyleClass().add("selected");
-
-            vbProcurar.toBack();
-            vbProcurar.setVisible(false);
-
-            vbBiblioteca.toFront();
-            vbBiblioteca.setVisible(true);
+            if (!btBiblioteca.getStyleClass().toString().equals("selected")) {
+                eventBiblioteca();
+            }
         });
 
+        btFavorite.setOnMouseClicked(arg0 -> {
+            boolean favorite = mediaPlayerModelo.getCurrentTrack().isFavorite() ? false : true;
+            mediaPlayerModelo.getCurrentTrack().setFavorite(favorite);
+
+            if (favorite) {
+                btFavorite.setImage(new Image("bin/img/ic_love_active.png"));
+            } else {
+                btFavorite.setImage(new Image("bin/img/ic_love_hover.png"));
+            }
+
+            favoriteSongsCard.getChildren().clear();
+            addCardSong(favoriteSongsCard, mainModelo.getFavorites(mediaPlayerModelo));
+        });
+
+        btFavorite.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
+            if (!mediaPlayerModelo.getCurrentTrack().isFavorite()) {
+                btFavorite.setImage(new Image("bin/img/ic_love_hover.png"));
+            }
+        });
+
+        btFavorite.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
+            if (!mediaPlayerModelo.getCurrentTrack().isFavorite()) {
+                btFavorite.setImage(new Image("bin/img/ic_love.png"));
+            }
+        });
     }
 
     private void textFieldsEvents() {
@@ -260,8 +264,58 @@ public class ButtonsController implements Initializable, Observer {
             tempList = new ArrayList<Song>(mainModelo.searchSongs(newValue, mediaPlayerModelo));
             hbSearchsMusics.getChildren().clear();
             addCardSong(hbSearchsMusics, tempList);
+
+            if (!btProcurar.getStyleClass().toString().equals("selected")) {
+                eventProcurar();
+            }
+
         });
 
+    }
+
+    private void eventInicio() {
+        vbInicio.toFront();
+        vbInicio.setVisible(true);
+
+        btInicio.getStyleClass().add("selected");
+        btProcurar.getStyleClass().remove("selected");
+        btBiblioteca.getStyleClass().remove("selected");
+
+        vbProcurar.toBack();
+        vbProcurar.setVisible(false);
+
+        vbBiblioteca.toBack();
+        vbBiblioteca.setVisible(false);
+    }
+
+    private void eventProcurar() {
+        vbInicio.toBack();
+        vbInicio.setVisible(false);
+
+        btInicio.getStyleClass().remove("selected");
+        btProcurar.getStyleClass().add("selected");
+        btBiblioteca.getStyleClass().remove("selected");
+
+        vbProcurar.toFront();
+        vbProcurar.setVisible(true);
+
+        vbBiblioteca.toBack();
+        vbBiblioteca.setVisible(false);
+    }
+
+    private void eventBiblioteca() {
+        vbInicio.toBack();
+        vbInicio.setVisible(false);
+
+        btInicio.getStyleClass().remove("selected");
+        btProcurar.getStyleClass().remove("selected");
+        btBiblioteca.getStyleClass().add("selected");
+
+        vbProcurar.toBack();
+        vbProcurar.setVisible(false);
+
+        vbBiblioteca.toFront();
+        vbBiblioteca.setVisible(true);
     }
 
     private void addCardSong(HBox hbTarget, List<Song> list) {
@@ -309,6 +363,12 @@ public class ButtonsController implements Initializable, Observer {
                     btPlay.setImage(new Image("bin/img/ic_play.png"));
                 } else {
                     btPlay.setImage(new Image("bin/img/ic_pause.png"));
+                }
+
+                if (mediaPlayerModelo.getCurrentTrack().isFavorite()) {
+                    btFavorite.setImage(new Image("bin/img/ic_love_active.png"));
+                } else {
+                    btFavorite.setImage(new Image("bin/img/ic_love.png"));
                 }
             }
         });

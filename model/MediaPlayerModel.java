@@ -176,7 +176,7 @@ public class MediaPlayerModel extends Observable {
             newMusic();
             play();
         } else {
-            numberSong = 0;
+            numberSong = 0; // Variavel para controlar a current song
             newMusic();
 
             play();
@@ -189,6 +189,15 @@ public class MediaPlayerModel extends Observable {
         String musicPacth = songs.get(numberSong).toURI().toString();
         media = new Media(musicPacth);
         mediaPlayerMp3 = new MediaPlayer(media);
+    }
+
+    public void setPlaylist(List<Song> playList) {
+        songs.clear();
+        numberSong = 0;
+
+        for (Song song : playList) {
+            songs.add(new File(song.getPath()));
+        }
     }
 
     public void setMusic(Song song) {
