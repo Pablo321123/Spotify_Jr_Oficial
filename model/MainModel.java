@@ -3,8 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 
-public class MainModel {
+public class MainModel extends Observable {
 
     // private List<Song> listGlobalMusics;
     // private MediaPlayerModel mediaPlayerModelo;
@@ -57,6 +58,21 @@ public class MainModel {
 
         playLists.put(name, songs);
 
+        setChanged();
+        notifyObservers();
+
+    }
+
+    public List<Song> getSongPlaylist(String name) {
+
+        return playLists.get(name);
+
+    }
+
+    public List<Song> getPlaylists() {
+
+        return null;
+
     }
 
     public String[] getNameExistingPlaylist() {
@@ -66,7 +82,6 @@ public class MainModel {
 
         for (String key : playLists.keySet()) {
             names[count++] = key;
-            System.out.println(key);
         }
 
         return names;

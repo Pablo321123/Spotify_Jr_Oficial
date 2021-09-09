@@ -60,6 +60,9 @@ public class ButtonsController implements Initializable, Observer {
     private VBox vbBiblioteca;
 
     @FXML
+    private HBox hbPlayLists;
+
+    @FXML
     private VBox vbProcurar;
 
     @FXML
@@ -126,6 +129,7 @@ public class ButtonsController implements Initializable, Observer {
     public void initialize(URL location, ResourceBundle resources) {
 
         mainModelo = new MainModel();
+        this.mainModelo.addObserver(this);
         mediaPlayerModelo = new MediaPlayerModel();
         this.mediaPlayerModelo.addObserver(this);
 
@@ -339,7 +343,7 @@ public class ButtonsController implements Initializable, Observer {
 
                 VBox vbox = loadCard.load();
                 SongController sc = loadCard.getController();
-                sc.setData(song, mediaPlayerModelo);
+                sc.setData(song, mediaPlayerModelo, mainModelo);
 
                 hbTarget.getChildren().add(vbox);
 
@@ -383,6 +387,12 @@ public class ButtonsController implements Initializable, Observer {
 
             @Override
             public void run() {
+ 
+                if (o.getClass().getName().equals("model.MainModel")) {
+                    hbPlayLists.getChildren().clear();
+                    addCardSong(hbPlayLists, mainModelo.get);
+                }
+
                 Song currentTrack = mediaPlayerModelo.getCurrentTrack();
 
                 imgMusicCurrent.setImage(new Image(getClass().getResourceAsStream(currentTrack.getAlbumImage())));
