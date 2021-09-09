@@ -69,9 +69,9 @@ public class MainModel extends Observable {
 
     }
 
-    public List<Song> getPlaylists() {
+    public HashMap<String, List<Song>> getPlaylists() {
 
-        return null;
+        return playLists;
 
     }
 

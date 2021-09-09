@@ -165,9 +165,9 @@
                   </HBox>
                   <StackPane prefHeight="150.0" prefWidth="1080.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox fx:id="vbBiblioteca" prefHeight="200.0" prefWidth="100.0" visible="false">
+                        <VBox fx:id="vbBiblioteca" prefHeight="200.0" prefWidth="100.0" spacing="10.0" visible="false">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                              <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Label text="Suas Playlists" textFill="WHITE">
                                        <font>
@@ -185,6 +185,9 @@
                                  </content>
                               </ScrollPane>
                            </children>
+                           <StackPane.margin>
+                              <Insets bottom="10.0" left="20.0" />
+                           </StackPane.margin>
                         </VBox>
                         <VBox fx:id="vbProcurar" prefHeight="200.0" prefWidth="100.0" visible="false">
                            <children>

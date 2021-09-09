@@ -353,6 +353,33 @@ public class ButtonsController implements Initializable, Observer {
         }
     }
 
+    private void addCardSong(HBox hbTarget, HashMap<String, List<Song>> playList) {
+        try {
+
+            for (String key : playList.keySet()) {
+
+                List<Song> album = playList.get(key);
+
+                if (album.isEmpty()) {
+                    return;
+                } else {
+                    Song capa = album.get(0);
+
+                    FXMLLoader loadCard = new FXMLLoader();
+                    loadCard.setLocation(getClass().getResource("/view/cardViewSong.fxml"));
+
+                    VBox vbox = loadCard.load();
+                    SongController sc = loadCard.getController();
+                    sc.setDataPlaylist(capa, key, album, mediaPlayerModelo, mainModelo);
+
+                    hbTarget.getChildren().add(vbox);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void modalPlaylist() {
 
         // Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -378,7 +405,6 @@ public class ButtonsController implements Initializable, Observer {
         }
 
         mainModelo.getNameExistingPlaylist();
-
     }
 
     @Override
@@ -390,36 +416,38 @@ public class ButtonsController implements Initializable, Observer {
 
                 if (o.getClass().getName().equals("model.MainModel")) {
                     hbPlayLists.getChildren().clear();
-                    // addCardSong(hbPlayLists, mainModelo.get);
-                }
-
-                Song currentTrack = mediaPlayerModelo.getCurrentTrack();
-
-                imgMusicCurrent.setImage(new Image(getClass().getResourceAsStream(currentTrack.getAlbumImage())));
-                lbMusicCurrent.setText(currentTrack.getTitleMusic());
-                lbArtistCurrent.setText(currentTrack.getArtist());
-
-                sldSongProgressBar.setMax(mediaPlayerModelo.getEndTime());
-                int segundos = (int) mediaPlayerModelo.getCurrentTime() % 60;
-
-                sldSongProgressBar.setValue(mediaPlayerModelo.getCurrentTime()); // Fazer um ouvinte para atualizar os
-                                                                                 // labels
-                String textoTime = String.format("%d:" + (segundos < 10 ? "0" : "") + "%d",
-                        (int) (mediaPlayerModelo.getCurrentTime() / 60), segundos);
-                lbCurrentTime.setText(textoTime);
-                textoTime = String.format("%.2f", mediaPlayerModelo.getEndTime() / 60).replace(",", ":"); //
-                lbMaxTime.setText(textoTime.equalsIgnoreCase("Nan") ? "0:00" : textoTime);
-
-                if (!mediaPlayerModelo.isPlaying()) {
-                    btPlay.setImage(new Image("bin/img/ic_play.png"));
+                    addCardSong(hbPlayLists, mainModelo.getPlaylists());
                 } else {
-                    btPlay.setImage(new Image("bin/img/ic_pause.png"));
-                }
 
-                if (mediaPlayerModelo.getCurrentTrack().isFavorite()) {
-                    btFavorite.setImage(new Image("bin/img/ic_love_active.png"));
-                } else {
-                    btFavorite.setImage(new Image("bin/img/ic_love.png"));
+                    Song currentTrack = mediaPlayerModelo.getCurrentTrack();
+
+                    imgMusicCurrent.setImage(new Image(getClass().getResourceAsStream(currentTrack.getAlbumImage())));
+                    lbMusicCurrent.setText(currentTrack.getTitleMusic());
+                    lbArtistCurrent.setText(currentTrack.getArtist());
+
+                    sldSongProgressBar.setMax(mediaPlayerModelo.getEndTime());
+                    int segundos = (int) mediaPlayerModelo.getCurrentTime() % 60;
+
+                    sldSongProgressBar.setValue(mediaPlayerModelo.getCurrentTime()); // Fazer um ouvinte para atualizar
+                                                                                     // os
+                                                                                     // labels
+                    String textoTime = String.format("%d:" + (segundos < 10 ? "0" : "") + "%d",
+                            (int) (mediaPlayerModelo.getCurrentTime() / 60), segundos);
+                    lbCurrentTime.setText(textoTime);
+                    textoTime = String.format("%.2f", mediaPlayerModelo.getEndTime() / 60).replace(",", ":"); //
+                    lbMaxTime.setText(textoTime.equalsIgnoreCase("Nan") ? "0:00" : textoTime);
+
+                    if (!mediaPlayerModelo.isPlaying()) {
+                        btPlay.setImage(new Image("bin/img/ic_play.png"));
+                    } else {
+                        btPlay.setImage(new Image("bin/img/ic_pause.png"));
+                    }
+
+                    if (mediaPlayerModelo.getCurrentTrack().isFavorite()) {
+                        btFavorite.setImage(new Image("bin/img/ic_love_active.png"));
+                    } else {
+                        btFavorite.setImage(new Image("bin/img/ic_love.png"));
+                    }
                 }
             }
         });

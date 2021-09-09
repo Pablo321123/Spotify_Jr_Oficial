@@ -24,10 +24,11 @@ public class MediaPlayerModel extends Observable {
     private File[] allFiles;
     private List<File> songs;
     private List<Song> globalLibrayMusics;
-    private int numberSong = 0;
+    private int numberSong = 0, indicePlaylist = 0;
+    private ArrayList<Integer> rowSongs;
     private Timer timer;
     private TimerTask task;
-    private boolean playing, mute = false;
+    private boolean playing, mute = false, havePlaylist = false;
     private double currentTime, endTime, currentVolume = 50.0; // currentSliderBar
 
     public MediaPlayerModel() {
@@ -35,6 +36,7 @@ public class MediaPlayerModel extends Observable {
         songs = new ArrayList<File>();
         directory = new File("music");
         globalLibrayMusics = new ArrayList<Song>();
+        rowSongs = new ArrayList<Integer>();
 
         allFiles = directory.listFiles();
 
@@ -155,7 +157,7 @@ public class MediaPlayerModel extends Observable {
                 cancelTimer();
             }
             if (numberSong > 0) {
-                numberSong--;
+                verificaFila(false);
                 newMusic();
                 play();
             }
@@ -171,33 +173,43 @@ public class MediaPlayerModel extends Observable {
         }
         currentTime = 0;
 
-        if (numberSong < songs.size() - 1) {
-            numberSong++;
-            newMusic();
-            play();
-        } else {
-            numberSong = 0; // Variavel para controlar a current song
-            newMusic();
+        verificaFila(true);
 
-            play();
-        }
+        newMusic();
+        play();
     }
 
     private void newMusic() {
         mediaPlayerMp3.stop();
         playing = false;
-        String musicPacth = songs.get(numberSong).toURI().toString();
-        media = new Media(musicPacth);
+
+        String musicPath = songs.get(numberSong).toURI().toString();
+
+        // if (!musicPath.substring(0, 4).equals("file")) {
+        // musicPath = songs.get(numberSong).toURI().toString();
+        // } else {
+        // musicPath = musicPath.replaceAll("\\\\", "/");
+        // }
+
+        media = new Media(musicPath);
         mediaPlayerMp3 = new MediaPlayer(media);
     }
 
     public void setPlaylist(List<Song> playList) {
-        songs.clear();
         numberSong = 0;
+        rowSongs.clear();
 
         for (Song song : playList) {
-            songs.add(new File(song.getPath()));
+            rowSongs.add(globalLibrayMusics.indexOf(song));
         }
+
+        havePlaylist = true;
+        indicePlaylist = 0;
+        numberSong = rowSongs.get(0); // Caso seja definida uma playList a musica atual passa a ser a primeira da
+                                      // playList
+
+        newMusic();
+        play();
     }
 
     public void setMusic(Song song) {
@@ -221,6 +233,40 @@ public class MediaPlayerModel extends Observable {
             String pathImage = file.getName().replace(".mp3", ".png");
             Song song = new Song("/bin/img/" + pathImage, nameFormatted[1], nameFormatted[2], file.toURI().toString());
             globalLibrayMusics.add(song);
+        }
+    }
+
+    private void verificaFila(boolean isNext) {
+
+        if (isNext) {
+            if (havePlaylist) {
+                int size = rowSongs.size() - 1;
+                if (size == indicePlaylist) { // Caso o usuario chegue na ultima musica da playlist e clique
+                    numberSong = rowSongs.get(0); // em next, voltara para a primeira musica desta playList
+                    indicePlaylist = 0;
+                } else {
+                    numberSong = rowSongs.get(++indicePlaylist);
+                }
+            } else {
+                if (numberSong < songs.size() - 1) {
+                    numberSong++;
+                } else {
+                    numberSong = 0; // Variavel para controlar a current song
+                }
+
+            }
+        } else {
+            if (havePlaylist) {
+                int size = rowSongs.size() - 1;
+                if (indicePlaylist == 0) { // Caso o usuario chegue na ultima musica da playlist e clique
+                    numberSong = rowSongs.get(size); // em previus, voltara para a ultima musica desta playList
+                    indicePlaylist = size;
+                } else {
+                    numberSong = rowSongs.get(--indicePlaylist);
+                }
+            } else {
+                numberSong--;
+            }
         }
     }
 
