@@ -26,9 +26,10 @@ Label:hover {
     -fx-text-fill: white;
 }
 
-.imagem1 {
-    -fx-image: url("../bin/img/ic_home.png");
-}
+
+/* .imagem1 {
+    -fx-image: url("../bin/img/ic_home_active.png");
+} */
 
 .top-border-separator {
     -fx-border-color: #282828;

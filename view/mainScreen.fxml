@@ -31,7 +31,10 @@
                <children>
                   <HBox id="navegadorPrincipal1" fx:id="btInicio" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" styleClass="selected" stylesheets="@../css/mainStyle.css">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="imagem1" />
+                        <ImageView fx:id="ic_Inicio" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="imagem1">
+                           <image>
+                              <Image url="@../bin/img/ic_home_active.png" />
+                           </image></ImageView>
                         <Label id="lbInicio" prefHeight="27.0" prefWidth="135.0" stylesheets="@../css/mainStyle.css" text="Início" textFill="#a1a1a1">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -41,7 +44,7 @@
                   </HBox>
                   <HBox fx:id="btProcurar" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="ic_Procurar" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_search.png" />
                            </image>
@@ -55,9 +58,9 @@
                   </HBox>
                   <HBox fx:id="btBiblioteca" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="ic_Biblioteca" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../bin/img/ic_radio.png" />
+                              <Image url="@../bin/img/bookshelf.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="27.0" prefWidth="135.0" stylesheets="@../css/mainStyle.css" text="Sua Biblioteca" textFill="#a1a1a1">

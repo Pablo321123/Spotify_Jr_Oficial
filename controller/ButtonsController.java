@@ -45,10 +45,19 @@ public class ButtonsController implements Initializable, Observer {
     private HBox btInicio;
 
     @FXML
+    private ImageView ic_Inicio;
+
+    @FXML
     private HBox btProcurar;
 
     @FXML
+    private ImageView ic_Procurar;
+
+    @FXML
     private HBox btBiblioteca;
+
+    @FXML
+    private ImageView ic_Biblioteca;
 
     @FXML
     private HBox btCriarPlaylist;
@@ -240,6 +249,7 @@ public class ButtonsController implements Initializable, Observer {
         btBiblioteca.setOnMouseClicked(arg0 -> {
             if (!btBiblioteca.getStyleClass().toString().equals("selected")) {
                 eventBiblioteca();
+
             }
         });
 
@@ -298,6 +308,10 @@ public class ButtonsController implements Initializable, Observer {
         btProcurar.getStyleClass().remove("selected");
         btBiblioteca.getStyleClass().remove("selected");
 
+        ic_Inicio.setImage(new Image("/bin/img/ic_home_active.png"));
+        ic_Procurar.setImage(new Image("/bin/img/ic_search.png"));
+        ic_Biblioteca.setImage(new Image("/bin/img/bookshelf.png"));
+
         vbProcurar.toBack();
         vbProcurar.setVisible(false);
 
@@ -313,6 +327,10 @@ public class ButtonsController implements Initializable, Observer {
         btProcurar.getStyleClass().add("selected");
         btBiblioteca.getStyleClass().remove("selected");
 
+        ic_Inicio.setImage(new Image("/bin/img/ic_home.png"));
+        ic_Procurar.setImage(new Image("/bin/img/ic_search_active.png"));
+        ic_Biblioteca.setImage(new Image("/bin/img/bookshelf.png"));
+
         vbProcurar.toFront();
         vbProcurar.setVisible(true);
 
@@ -327,6 +345,10 @@ public class ButtonsController implements Initializable, Observer {
         btInicio.getStyleClass().remove("selected");
         btProcurar.getStyleClass().remove("selected");
         btBiblioteca.getStyleClass().add("selected");
+
+        ic_Inicio.setImage(new Image("/bin/img/ic_home.png"));
+        ic_Procurar.setImage(new Image("/bin/img/ic_search.png"));
+        ic_Biblioteca.setImage(new Image("/bin/img/bookshelf_active.png"));
 
         vbProcurar.toBack();
         vbProcurar.setVisible(false);
