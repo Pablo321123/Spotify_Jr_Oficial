@@ -387,10 +387,10 @@ public class ButtonsController implements Initializable, Observer {
 
             @Override
             public void run() {
- 
+
                 if (o.getClass().getName().equals("model.MainModel")) {
                     hbPlayLists.getChildren().clear();
-                    addCardSong(hbPlayLists, mainModelo.get);
+                    // addCardSong(hbPlayLists, mainModelo.get);
                 }
 
                 Song currentTrack = mediaPlayerModelo.getCurrentTrack();
