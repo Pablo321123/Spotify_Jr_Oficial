@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -41,6 +42,9 @@
                            </font>
                         </Label>
                      </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </HBox>
                   <HBox fx:id="btProcurar" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
                      <children>
@@ -55,6 +59,9 @@
                            </font>
                         </Label>
                      </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </HBox>
                   <HBox fx:id="btBiblioteca" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" stylesheets="@../css/mainStyle.css">
                      <children>
@@ -69,6 +76,9 @@
                            </font>
                         </Label>
                      </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </HBox>
                </children>
             </VBox>
@@ -170,23 +180,27 @@
                      <children>
                         <VBox fx:id="vbBiblioteca" prefHeight="200.0" prefWidth="100.0" spacing="10.0" visible="false">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <Label text="Suas Playlists" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
+                                    <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                       <content>
+                                          <HBox fx:id="hbPlayLists" prefHeight="0.0" prefWidth="0.0" spacing="20.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </HBox>
+                                       </content>
+                                    </ScrollPane>
                                  </children>
                                  <VBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </VBox>
-                              <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;">
-                                 <content>
-                                    <HBox fx:id="hbPlayLists" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
-                                 </content>
-                              </ScrollPane>
                            </children>
                            <StackPane.margin>
                               <Insets bottom="10.0" left="20.0" />
@@ -203,7 +217,10 @@
                                     </Label>
                                     <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                                        <content>
-                                          <HBox fx:id="hbSearchsMusics" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                          <HBox fx:id="hbSearchsMusics" prefHeight="0.0" prefWidth="0.0" spacing="20.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></HBox>
                                        </content>
                                     </ScrollPane>
                                  </children>
@@ -217,19 +234,19 @@
                            <children>
                               <VBox spacing="20.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                                       <children>
-                                          <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
-                                             <image>
-                                                <Image url="@../bin/img/Spotify_banner_2.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                    <ScrollPane prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                    <ScrollPane fitToWidth="true" prefHeight="537.0" prefWidth="1080.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                                        <content>
                                           <VBox prefHeight="558.0" prefWidth="1064.0" spacing="10.0">
                                              <children>
+                                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                                   <children>
+                                                      <ImageView fitHeight="240.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true" smooth="false" VBox.vgrow="ALWAYS">
+                                                         <image>
+                                                            <Image url="@../bin/img/Spotify_banner_2.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                </VBox>
                                                 <Label text="Tocada Recentemente" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="18.0" />
@@ -237,7 +254,11 @@
                                                 </Label>
                                                 <ScrollPane minViewportHeight="245.0" prefHeight="229.0" prefWidth="1064.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                                    <content>
-                                                      <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                                      <HBox fx:id="recentlyPlayedCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </HBox>
                                                    </content>
                                                 </ScrollPane>
                                                 <Label text="Favoritas" textFill="WHITE">
@@ -247,7 +268,11 @@
                                                 </Label>
                                                 <ScrollPane minViewportHeight="245.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                                    <content>
-                                                      <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0" />
+                                                      <HBox fx:id="favoriteSongsCard" prefHeight="0.0" prefWidth="0.0" spacing="20.0">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </HBox>
                                                    </content>
                                                 </ScrollPane>
                                              </children>
@@ -299,6 +324,9 @@
                      <image>
                         <Image url="@../bin/img/ic_love.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </children>
             </HBox>
@@ -311,26 +339,41 @@
                            <image>
                               <Image url="@../bin/img/ic_shuffle.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fx:id="btPrevius" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="button-previus">
                            <image>
                               <Image url="@../bin/img/ic_skip_to_start.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fx:id="btPlay" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="play-button">
                            <image>
                               <Image url="@../bin/img/ic_play.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fx:id="btNext" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="button-next">
                            <image>
                               <Image url="@../bin/img/ic_end.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../bin/img/ic_repeat.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </HBox>
@@ -341,7 +384,10 @@
                               <Font size="10.0" />
                            </font>
                         </Label>
-                        <JFXSlider fx:id="sldSongProgressBar" blockIncrement="0.0" max="1.0" prefHeight="66.0" prefWidth="546.0" styleClass="timeSongSlider" value="0.001" />
+                        <JFXSlider fx:id="sldSongProgressBar" blockIncrement="0.0" max="1.0" prefHeight="66.0" prefWidth="546.0" styleClass="timeSongSlider" value="0.001">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></JFXSlider>
                         <Label fx:id="lbMaxTime" alignment="CENTER" prefHeight="21.0" prefWidth="70.0" text="0:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="10.0" />
@@ -363,8 +409,14 @@
                      <image>
                         <Image url="@../bin/img/volume-medium.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
-                  <JFXSlider id="volume" fx:id="sldVolume" blockIncrement="0.0" styleClass="sliderVolume" value="50.0" />
+                  <JFXSlider id="volume" fx:id="sldVolume" blockIncrement="0.0" styleClass="sliderVolume" value="50.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></JFXSlider>
                </children>
             </HBox>
          </children>
