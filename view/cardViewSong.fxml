@@ -12,7 +12,7 @@
    <children>
       <ImageView fx:id="img" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../bin/img/cesar_menoti_leilao.jpg" />
+            <Image url="@../bin/img/on_my_way.jpg" />
          </image>
       </ImageView>
       <HBox>

@@ -381,6 +381,7 @@ public class ButtonsController implements Initializable, Observer {
 
     public void eventRecyclerPlaylist() {
         eventBiblioteca();
+        ic_Biblioteca.setImage(new Image("/bin/img/bookshelf.png"));
         vbBiblioteca.toBack();
         vbBiblioteca.setVisible(false);
         btInicio.getStyleClass().remove("selected");
@@ -399,7 +400,7 @@ public class ButtonsController implements Initializable, Observer {
 
                 VBox vbox = loadCard.load();
                 SongController sc = loadCard.getController();
-                sc.setData(song, mediaPlayerModelo, mainModelo, vbRecyclerSongs);
+                sc.setData(song, mediaPlayerModelo, mainModelo, vbRecyclerSongs, this);
 
                 hbTarget.getChildren().add(vbox);
 
@@ -436,7 +437,25 @@ public class ButtonsController implements Initializable, Observer {
         }
     }
 
-    public void addRecyclerSongs(List<Song> list) {
+    public void addRecyclerSongs(Song song) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/recyclerViewSong.fxml"));
+
+            HBox hbRecycler = loader.load();
+            RecyclerViewSongController rvc = loader.getController();
+            rvc.setData(song, new ArrayList<>(), mediaPlayerModelo, mainModelo);
+
+            vbRecyclerSongs.getChildren().add(hbRecycler);
+
+        } catch (IOException e) {
+
+        }
+    }
+
+    public void addRecyclerSongsPlayList(List<Song> list) {
         for (Song song : list) {
             try {
 

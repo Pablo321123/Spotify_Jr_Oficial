@@ -51,10 +51,8 @@ public class SongController extends Observable {
     }
 
     // É adicionado os dados da musica no card
-    public void setData(Song song, MediaPlayerModel mpm, MainModel mainModelo, VBox target) { // Vbox target sera a Vbox
-                                                                                              // que armazenara as
-                                                                                              // musicas das playslists
-        this.mainModelo = mainModelo;
+    public void setData(Song song, MediaPlayerModel mpm, MainModel mainModelo, VBox target, ButtonsController btc) {
+        this.mainModelo = mainModelo; // Vbox target sera a Vbox que armazenara as musicas das playslists
 
         Image image = new Image(getClass().getResourceAsStream(song.getAlbumImage()));
         img.setImage(image);
@@ -81,6 +79,8 @@ public class SongController extends Observable {
                 openPopupMenu(arg0, song, 0);
             }
         });
+
+        eventImg(btc, song, null, false);
     }
 
     public void setDataPlaylist(Song song, String namePlaylist, List<Song> playList, MediaPlayerModel mpm,
@@ -98,16 +98,6 @@ public class SongController extends Observable {
             mpm.setPlaylist(playList);
         });
 
-        // vbCard.hoverProperty().addListener(new ChangeListener<Boolean>() {
-
-        // @Override
-        // public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1,
-        // Boolean arg2) {
-        // System.out.println(song.getTitleMusic());
-        // }
-
-        // });
-
         vbCard.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
             btPlayCard.setVisible(true);
         });
@@ -120,9 +110,22 @@ public class SongController extends Observable {
         vbCard.setOnMouseClicked(arg0 -> {
             if (arg0.getButton() == MouseButton.SECONDARY) {
                 openPopupMenu(arg0, song, 1);
-            } else if (arg0.getButton() == MouseButton.PRIMARY) {
+            }
+        });
+
+        eventImg(btc, song, playList, true);
+    }
+
+    private void eventImg(ButtonsController btc, Song song, List<Song> songs, boolean isPlaylist) {
+        img.setOnMouseClicked(arg0 -> {
+            if (arg0.getButton() == MouseButton.PRIMARY) {
                 btc.eventRecyclerPlaylist();
-                btc.addRecyclerSongs(playList);
+
+                if (isPlaylist) {
+                    btc.addRecyclerSongsPlayList(songs);
+                } else {
+                    btc.addRecyclerSongs(song);
+                }
             }
         });
     }

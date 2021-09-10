@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -293,7 +292,7 @@
                                  <content>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Label text="Nome_Playlist" textFill="WHITE">
+                                          <Label fx:id="lbNomePlaylist" text="Nome_Playlist" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -301,11 +300,29 @@
                                                 <Insets top="10.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <Separator prefHeight="1.0" prefWidth="1080.0" VBox.vgrow="ALWAYS">
+                                          <HBox alignment="CENTER" prefHeight="54.0" prefWidth="1000.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #87878785;">
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="27.0" text="#" textAlignment="CENTER" textFill="WHITE" />
+                                                <Pane prefHeight="54.0" prefWidth="70.0" />
+                                                <Label prefHeight="17.0" prefWidth="233.0" text="TÍTULO" textAlignment="CENTER" textFill="WHITE" />
+                                                <Pane prefHeight="54.0" prefWidth="70.0" />
+                                                <Label alignment="CENTER" prefHeight="17.0" prefWidth="207.0" text="ÁLBUM" textAlignment="CENTER" textFill="WHITE" />
+                                                <Pane prefHeight="54.0" prefWidth="70.0" />
+                                                <Label prefHeight="20.0" prefWidth="139.0" text="ADICIONADO EM" textAlignment="CENTER" textFill="WHITE" />
+                                                <Pane prefHeight="54.0" prefWidth="94.0" />
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../bin/img/clock-outline.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
                                              <VBox.margin>
                                                 <Insets right="10.0" />
                                              </VBox.margin>
-                                          </Separator>
+                                          </HBox>
                                           <VBox fx:id="vbRecyclerSongs" alignment="TOP_CENTER" fillWidth="false" spacing="5.0" VBox.vgrow="ALWAYS">
                                              <padding>
                                                 <Insets left="10.0" />
@@ -434,10 +451,13 @@
             <Pane prefHeight="100.0" prefWidth="22.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="272.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btFila" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../bin/img/ic_playlist.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <ImageView fx:id="btAudio" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
