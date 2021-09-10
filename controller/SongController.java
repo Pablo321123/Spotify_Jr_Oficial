@@ -1,6 +1,8 @@
 package controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Observable;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -9,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -17,6 +20,7 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -24,7 +28,7 @@ import model.MainModel;
 import model.MediaPlayerModel;
 import model.Song;
 
-public class SongController {
+public class SongController extends Observable {
 
     @FXML
     private VBox vbCard;
@@ -47,7 +51,9 @@ public class SongController {
     }
 
     // É adicionado os dados da musica no card
-    public void setData(Song song, MediaPlayerModel mpm, MainModel mainModelo) {
+    public void setData(Song song, MediaPlayerModel mpm, MainModel mainModelo, VBox target) { // Vbox target sera a Vbox
+                                                                                              // que armazenara as
+                                                                                              // musicas das playslists
         this.mainModelo = mainModelo;
 
         Image image = new Image(getClass().getResourceAsStream(song.getAlbumImage()));
@@ -60,16 +66,6 @@ public class SongController {
         btPlayCard.setOnMouseClicked(arg0 -> {
             mpm.setMusic(song);
         });
-
-        // vbCard.hoverProperty().addListener(new ChangeListener<Boolean>() {
-
-        // @Override
-        // public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1,
-        // Boolean arg2) {
-        // System.out.println(song.getTitleMusic());
-        // }
-
-        // });
 
         vbCard.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
             btPlayCard.setVisible(true);
@@ -88,7 +84,7 @@ public class SongController {
     }
 
     public void setDataPlaylist(Song song, String namePlaylist, List<Song> playList, MediaPlayerModel mpm,
-            MainModel mainModelo) {
+            MainModel mainModelo, VBox target, ButtonsController btc) {
         this.mainModelo = mainModelo;
 
         Image image = new Image(getClass().getResourceAsStream(song.getAlbumImage()));
@@ -124,6 +120,9 @@ public class SongController {
         vbCard.setOnMouseClicked(arg0 -> {
             if (arg0.getButton() == MouseButton.SECONDARY) {
                 openPopupMenu(arg0, song, 1);
+            } else if (arg0.getButton() == MouseButton.PRIMARY) {
+                btc.eventRecyclerPlaylist();
+                btc.addRecyclerSongs(playList);
             }
         });
     }
@@ -161,4 +160,5 @@ public class SongController {
     private void popupPlaylist() {
 
     }
+
 }

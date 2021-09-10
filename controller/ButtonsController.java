@@ -20,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -85,6 +86,15 @@ public class ButtonsController implements Initializable, Observer {
 
     @FXML
     private HBox favoriteSongsCard;
+
+    @FXML
+    private VBox vbSongLists;
+
+    @FXML
+    private Label lbNomePlaylist;
+
+    @FXML
+    private VBox vbRecyclerSongs;
 
     @FXML
     private ImageView imgMusicCurrent;
@@ -317,6 +327,10 @@ public class ButtonsController implements Initializable, Observer {
 
         vbBiblioteca.toBack();
         vbBiblioteca.setVisible(false);
+
+        vbSongLists.toBack();
+        vbSongLists.setVisible(false);
+        vbRecyclerSongs.getChildren().clear();
     }
 
     private void eventProcurar() {
@@ -336,6 +350,10 @@ public class ButtonsController implements Initializable, Observer {
 
         vbBiblioteca.toBack();
         vbBiblioteca.setVisible(false);
+
+        vbSongLists.toBack();
+        vbSongLists.setVisible(false);
+        vbRecyclerSongs.getChildren().clear();
     }
 
     private void eventBiblioteca() {
@@ -355,6 +373,22 @@ public class ButtonsController implements Initializable, Observer {
 
         vbBiblioteca.toFront();
         vbBiblioteca.setVisible(true);
+
+        vbSongLists.toBack();
+        vbSongLists.setVisible(false);
+        vbRecyclerSongs.getChildren().clear();
+    }
+
+    public void eventRecyclerPlaylist() {
+        eventBiblioteca();
+        vbBiblioteca.toBack();
+        vbBiblioteca.setVisible(false);
+        btInicio.getStyleClass().remove("selected");
+        btProcurar.getStyleClass().remove("selected");
+        btBiblioteca.getStyleClass().remove("selected");
+
+        vbSongLists.toFront();
+        vbSongLists.setVisible(true);
     }
 
     private void addCardSong(HBox hbTarget, List<Song> list) {
@@ -365,7 +399,7 @@ public class ButtonsController implements Initializable, Observer {
 
                 VBox vbox = loadCard.load();
                 SongController sc = loadCard.getController();
-                sc.setData(song, mediaPlayerModelo, mainModelo);
+                sc.setData(song, mediaPlayerModelo, mainModelo, vbRecyclerSongs);
 
                 hbTarget.getChildren().add(vbox);
 
@@ -392,13 +426,32 @@ public class ButtonsController implements Initializable, Observer {
 
                     VBox vbox = loadCard.load();
                     SongController sc = loadCard.getController();
-                    sc.setDataPlaylist(capa, key, album, mediaPlayerModelo, mainModelo);
+                    sc.setDataPlaylist(capa, key, album, mediaPlayerModelo, mainModelo, vbRecyclerSongs, this);
 
                     hbTarget.getChildren().add(vbox);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addRecyclerSongs(List<Song> list) {
+        for (Song song : list) {
+            try {
+
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/recyclerViewSong.fxml"));
+
+                HBox hbRecycler = loader.load();
+                RecyclerViewSongController rvc = loader.getController();
+                rvc.setData(song, list, mediaPlayerModelo, mainModelo);
+
+                vbRecyclerSongs.getChildren().add(hbRecycler);
+
+            } catch (IOException e) {
+
+            }
         }
     }
 
