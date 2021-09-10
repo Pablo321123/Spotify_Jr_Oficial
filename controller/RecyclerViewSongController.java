@@ -74,7 +74,7 @@ public class RecyclerViewSongController {
             ivLiked.setVisible(false);
         }
 
-        lbDuration.setText(String.valueOf(mpm.getEndTime()));
+        lbDuration.setText(song.getEndTime());
 
         eventHbox(playList, song);
 

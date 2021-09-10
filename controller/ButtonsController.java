@@ -39,6 +39,7 @@ import javafx.stage.StageStyle;
 import model.MainModel;
 import model.MediaPlayerModel;
 import model.Song;
+import util.ToolsUtils;
 
 public class ButtonsController implements Initializable, Observer {
 
@@ -546,15 +547,12 @@ public class ButtonsController implements Initializable, Observer {
                     lbArtistCurrent.setText(currentTrack.getArtist());
 
                     sldSongProgressBar.setMax(mediaPlayerModelo.getEndTime());
-                    int segundos = (int) mediaPlayerModelo.getCurrentTime() % 60;
+                    sldSongProgressBar.setValue(mediaPlayerModelo.getCurrentTime());
 
-                    sldSongProgressBar.setValue(mediaPlayerModelo.getCurrentTime()); // Fazer um ouvinte para atualizar
-                                                                                     // os
-                                                                                     // labels
-                    String textoTime = String.format("%d:" + (segundos < 10 ? "0" : "") + "%d",
-                            (int) (mediaPlayerModelo.getCurrentTime() / 60), segundos);
+                    String textoTime = ToolsUtils.hourFormatted(mediaPlayerModelo.getCurrentTime());
                     lbCurrentTime.setText(textoTime);
-                    textoTime = String.format("%.2f", mediaPlayerModelo.getEndTime() / 60).replace(",", ":"); //
+
+                    textoTime = ToolsUtils.hourFormatted(mediaPlayerModelo.getEndTime());
                     lbMaxTime.setText(textoTime.equalsIgnoreCase("Nan") ? "0:00" : textoTime);
 
                     if (!mediaPlayerModelo.isPlaying()) {

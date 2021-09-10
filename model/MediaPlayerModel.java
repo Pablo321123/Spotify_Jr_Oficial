@@ -53,6 +53,20 @@ public class MediaPlayerModel extends Observable {
         media = new Media(musicPacth); // Foi preciso adicionar o seguinte trecho : --add-modules
         mediaPlayerMp3 = new MediaPlayer(media); // javafx.controls,javafx.media no modulo do programa
 
+        // mediaPlayerMp3.setOnReady(new Runnable() {
+
+        // @Override
+        // public void run() {
+        // for (Song song : globalLibrayMusics) {
+        // // String path = songs.get(numberSong).toURI().toString();
+        // double duration = media.getDuration().toSeconds();
+        // String endTime = ToolsUtils.hourFormatted(duration);
+        // song.setEndTime(endTime);
+        // }
+
+        // }
+        // });
+
     }
 
     public boolean isPlaying() {
@@ -231,7 +245,9 @@ public class MediaPlayerModel extends Observable {
             int authors = Integer.parseInt(file.getName().substring(0, 1));
             String[] nameFormatted = ToolsUtils.titleFormat(file.getName(), authors);
             String pathImage = file.getName().replace(".mp3", ".png");
-            Song song = new Song("/bin/img/" + pathImage, nameFormatted[1], nameFormatted[2], file.toURI().toString());
+            Song song = new Song("/bin/img/" + pathImage, nameFormatted[1], nameFormatted[2], file.toURI().toString(),
+                    "0:00");
+
             globalLibrayMusics.add(song);
         }
     }

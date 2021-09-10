@@ -6,19 +6,22 @@ public class Song {
     private String artist;
     private String path;
     private boolean favorite;
+    private String endTime;
 
     public Song() {
         albumImage = "";
         titleMusic = "";
         artist = "";
         path = "";
+        endTime = "0:00";
         favorite = false;
     }
 
-    public Song(String albumImage, String titleMusic, String artist, String path) {
+    public Song(String albumImage, String titleMusic, String artist, String path, String endTime) {
         this.albumImage = albumImage;
         this.titleMusic = titleMusic;
         this.artist = artist;
+        this.endTime = endTime;
         this.path = path;
         this.favorite = false;
     }
@@ -63,6 +66,12 @@ public class Song {
         this.favorite = favorite;
     }
 
-    
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
 }
