@@ -80,7 +80,7 @@ public class SongController extends Observable {
             }
         });
 
-        eventImg(btc, song, null, false);
+        eventImg(btc, song, null, false, song.getTitleMusic());
     }
 
     public void setDataPlaylist(Song song, String namePlaylist, List<Song> playList, MediaPlayerModel mpm,
@@ -113,18 +113,18 @@ public class SongController extends Observable {
             }
         });
 
-        eventImg(btc, song, playList, true);
+        eventImg(btc, song, playList, true, namePlaylist);
     }
 
-    private void eventImg(ButtonsController btc, Song song, List<Song> songs, boolean isPlaylist) {
+    private void eventImg(ButtonsController btc, Song song, List<Song> songs, boolean isPlaylist, String name) {
         img.setOnMouseClicked(arg0 -> {
             if (arg0.getButton() == MouseButton.PRIMARY) {
                 btc.eventRecyclerPlaylist();
 
                 if (isPlaylist) {
-                    btc.addRecyclerSongsPlayList(songs);
+                    btc.addRecyclerSongsPlayList(songs, name);
                 } else {
-                    btc.addRecyclerSongs(song);
+                    btc.addRecyclerSongs(song, name);
                 }
             }
         });

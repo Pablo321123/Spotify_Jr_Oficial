@@ -86,6 +86,10 @@ public class MediaPlayerModel extends Observable {
         return globalLibrayMusics;
     }
 
+    public ArrayList<Integer> getQueue() {
+        return rowSongs;
+    }
+
     public void setGlobalLibrayMusics(List<Song> globalLibrayMusics) {
         this.globalLibrayMusics = globalLibrayMusics;
     }
@@ -95,10 +99,6 @@ public class MediaPlayerModel extends Observable {
 
         return currentMusic;
     }
-
-    // public double getTimeSliderBarCurrent() {
-    // return currentSliderBar;
-    // }
 
     public double getCurrentTime() {
 

@@ -127,6 +127,9 @@ public class ButtonsController implements Initializable, Observer {
     private Label lbMaxTime;
 
     @FXML
+    private ImageView btQueue;
+
+    @FXML
     private ImageView btAudio;
 
     @FXML
@@ -293,6 +296,23 @@ public class ButtonsController implements Initializable, Observer {
             modalPlaylist();
         });
 
+        btQueue.setOnMouseClicked(arg0 -> {
+
+            List<Song> global = mediaPlayerModelo.getGlobalLibrayMusics();
+            List<Song> list = new ArrayList<Song>();
+            ArrayList<Integer> queue = mediaPlayerModelo.getQueue();
+
+            if (!queue.isEmpty()) {
+                for (int i : queue) {
+                    list.add(global.get(i));
+                }
+                eventRecyclerPlaylist();
+                addRecyclerSongsPlayList(list, "Fila");
+            } else {
+                lbNomePlaylist.setText("Fila");
+            }
+
+        });
     }
 
     private void textFieldsEvents() {
@@ -353,6 +373,7 @@ public class ButtonsController implements Initializable, Observer {
 
         vbSongLists.toBack();
         vbSongLists.setVisible(false);
+
         vbRecyclerSongs.getChildren().clear();
     }
 
@@ -381,9 +402,11 @@ public class ButtonsController implements Initializable, Observer {
 
     public void eventRecyclerPlaylist() {
         eventBiblioteca();
+
         ic_Biblioteca.setImage(new Image("/bin/img/bookshelf.png"));
         vbBiblioteca.toBack();
         vbBiblioteca.setVisible(false);
+
         btInicio.getStyleClass().remove("selected");
         btProcurar.getStyleClass().remove("selected");
         btBiblioteca.getStyleClass().remove("selected");
@@ -437,7 +460,7 @@ public class ButtonsController implements Initializable, Observer {
         }
     }
 
-    public void addRecyclerSongs(Song song) {
+    public void addRecyclerSongs(Song song, String name) {
 
         try {
 
@@ -450,12 +473,14 @@ public class ButtonsController implements Initializable, Observer {
 
             vbRecyclerSongs.getChildren().add(hbRecycler);
 
+            lbNomePlaylist.setText(name);
+
         } catch (IOException e) {
 
         }
     }
 
-    public void addRecyclerSongsPlayList(List<Song> list) {
+    public void addRecyclerSongsPlayList(List<Song> list, String name) {
         for (Song song : list) {
             try {
 
@@ -467,9 +492,10 @@ public class ButtonsController implements Initializable, Observer {
                 rvc.setData(song, list, mediaPlayerModelo, mainModelo);
 
                 vbRecyclerSongs.getChildren().add(hbRecycler);
+                lbNomePlaylist.setText(name);
 
             } catch (IOException e) {
-
+                e.printStackTrace();
             }
         }
     }

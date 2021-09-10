@@ -451,7 +451,7 @@
             <Pane prefHeight="100.0" prefWidth="22.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="272.0" spacing="10.0">
                <children>
-                  <ImageView fx:id="btFila" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btQueue" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../bin/img/ic_playlist.png" />
                      </image>

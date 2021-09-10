@@ -26,6 +26,10 @@ Label:hover {
     -fx-text-fill: white;
 }
 
+.label-title {
+    -fx-text-fill: white;
+}
+
 
 /* .imagem1 {
     -fx-image: url("../bin/img/ic_home_active.png");
