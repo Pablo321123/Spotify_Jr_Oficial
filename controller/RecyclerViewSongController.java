@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -83,11 +84,15 @@ public class RecyclerViewSongController {
 
         hbRVSong.setOnMouseClicked(arg0 -> {
 
-            if (!playList.isEmpty()) {
-                mpm.setPlaylist(playList);
-            }
+            if (arg0.getButton() == MouseButton.PRIMARY) {
+                if (!playList.isEmpty()) {
+                    mpm.setPlaylist(playList);
+                }
 
-            mpm.setMusic(song);
+                mpm.setMusic(song);
+            } else if (arg0.getButton() == MouseButton.SECONDARY) {
+
+            }
 
         });
 
