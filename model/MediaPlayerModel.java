@@ -30,8 +30,11 @@ public class MediaPlayerModel extends Observable {
     private TimerTask task;
     private boolean playing, mute = false, havePlaylist = false;
     private double currentTime, endTime, currentVolume = 50.0; // currentSliderBar
+    private MainModel mainModelo;
 
-    public MediaPlayerModel() {
+    public MediaPlayerModel(MainModel mainModelo) {
+
+        this.mainModelo = mainModelo;
 
         songs = new ArrayList<File>();
         directory = new File("music");
@@ -147,6 +150,10 @@ public class MediaPlayerModel extends Observable {
             setVolume(currentVolume);
             playing = true;
             beginTimer();
+
+            if (mainModelo.getRecentlyPlayed().size() < globalLibrayMusics.size()) {
+                mainModelo.addRecentlyPlayed(getCurrentTrack());
+            }
         }
 
         this.setChanged();

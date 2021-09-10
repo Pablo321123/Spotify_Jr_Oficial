@@ -153,15 +153,17 @@ public class ButtonsController implements Initializable, Observer {
 
         mainModelo = new MainModel();
         this.mainModelo.addObserver(this);
-        mediaPlayerModelo = new MediaPlayerModel();
+        mediaPlayerModelo = new MediaPlayerModel(mainModelo);
         this.mediaPlayerModelo.addObserver(this);
 
-        listRecentlyPlayed = new ArrayList<Song>(mainModelo.getRecentlyPlayed(mediaPlayerModelo));
-        listFavoritesSong = new ArrayList<Song>(mainModelo.getFavorites(mediaPlayerModelo));
+        // listRecentlyPlayed = new
+        // ArrayList<Song>(mainModelo.getRecentlyPlayed(mediaPlayerModelo));
+        // listFavoritesSong = new
+        // ArrayList<Song>(mainModelo.getFavorites(mediaPlayerModelo));
         tempList = new ArrayList<Song>(mainModelo.searchSongs("", mediaPlayerModelo));
 
-        addCardSong(recentlyPlayedCard, listRecentlyPlayed);
-        addCardSong(favoriteSongsCard, listFavoritesSong);
+        // addCardSong(recentlyPlayedCard, listRecentlyPlayed);
+        // addCardSong(favoriteSongsCard, listFavoritesSong);
         addCardSong(hbSearchsMusics, tempList);
 
         buttonsEvents();
@@ -538,6 +540,9 @@ public class ButtonsController implements Initializable, Observer {
                 if (o.getClass().getName().equals("model.MainModel")) {
                     hbPlayLists.getChildren().clear();
                     addCardSong(hbPlayLists, mainModelo.getPlaylists());
+                    listRecentlyPlayed = new ArrayList<Song>(mainModelo.getRecentlyPlayed());
+                    recentlyPlayedCard.getChildren().clear();
+                    addCardSong(recentlyPlayedCard, listRecentlyPlayed);
                 } else {
 
                     Song currentTrack = mediaPlayerModelo.getCurrentTrack();

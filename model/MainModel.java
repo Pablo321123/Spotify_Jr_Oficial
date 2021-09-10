@@ -7,12 +7,15 @@ import java.util.Observable;
 
 public class MainModel extends Observable {
 
+    private List<Song> listRecentlyPlayed;
+
     // private List<Song> listGlobalMusics;
     // private MediaPlayerModel mediaPlayerModelo;
     private HashMap<String, List<Song>> playLists;
 
     public MainModel() {
         playLists = new HashMap<String, List<Song>>();
+        listRecentlyPlayed = new ArrayList<Song>();
         // this.mediaPlayerModelo = mediaPlayerModelo;
         // listGlobalMusics = mediaPlayerModelo.getGlobalLibrayMusics();
     }
@@ -35,11 +38,19 @@ public class MainModel extends Observable {
         return list;
     }
 
-    public List<Song> getRecentlyPlayed(MediaPlayerModel mediaPlayerModelo) {
+    public void addRecentlyPlayed(Song song) {
 
-        List<Song> list = mediaPlayerModelo.getGlobalLibrayMusics();
+        if (!listRecentlyPlayed.contains(song)) {
+            listRecentlyPlayed.add(song);
+        }    
 
-        return list;
+        setChanged();
+        notifyObservers();
+    }
+
+    public List<Song> getRecentlyPlayed() {
+
+        return listRecentlyPlayed;
     }
 
     public List<Song> getFavorites(MediaPlayerModel mediaPlayerModelo) {
