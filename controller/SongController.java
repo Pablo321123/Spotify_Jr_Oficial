@@ -95,7 +95,7 @@ public class SongController extends Observable {
         artist.setText("");
 
         btPlayCard.setOnMouseClicked(arg0 -> {
-            mpm.setPlaylist(playList);
+            mpm.setPlaylist(playList, namePlaylist);
         });
 
         vbCard.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
@@ -137,7 +137,7 @@ public class SongController extends Observable {
 
         switch (tipoJanela) {
             case 0 -> popupSongs(song, contextMenu);
-            case 1 -> popupPlaylist();
+            case 1 -> popupPlaylist(contextMenu);
         }
 
         contextMenu.show(vbCard, event.getScreenX(), event.getScreenY());
@@ -160,7 +160,14 @@ public class SongController extends Observable {
         contextMenu.getItems().add(menuSongs);
     }
 
-    private void popupPlaylist() {
+    private void popupPlaylist(ContextMenu contextMenu) {
+        MenuItem menuSongs = new MenuItem("Remover PlayList");
+
+        menuSongs.setOnAction(value -> {
+            mainModelo.removePlaylist(songName.getText());
+        });
+
+        contextMenu.getItems().add(menuSongs);
 
     }
 

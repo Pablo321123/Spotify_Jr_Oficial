@@ -20,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
@@ -34,6 +35,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.MainModel;
@@ -60,6 +63,9 @@ public class ButtonsController implements Initializable, Observer {
 
     @FXML
     private ImageView ic_Biblioteca;
+
+    @FXML
+    private VBox vbPlaylistsMenu;
 
     @FXML
     private HBox btCriarPlaylist;
@@ -153,7 +159,7 @@ public class ButtonsController implements Initializable, Observer {
 
         mainModelo = new MainModel();
         this.mainModelo.addObserver(this);
-        mediaPlayerModelo = new MediaPlayerModel(mainModelo);
+        mediaPlayerModelo = new MediaPlayerModel(mainModelo, this);
         this.mediaPlayerModelo.addObserver(this);
 
         // listRecentlyPlayed = new
@@ -309,11 +315,15 @@ public class ButtonsController implements Initializable, Observer {
                 for (int i : queue) {
                     list.add(global.get(i));
                 }
-                eventRecyclerPlaylist();
-                addRecyclerSongsPlayList(list, "Fila");
+
             } else {
                 lbNomePlaylist.setText("Fila");
+                if (mediaPlayerModelo.getCurrentTrack() != null) {
+                    list.add(mediaPlayerModelo.getCurrentTrack());
+                }
             }
+            eventRecyclerPlaylist();
+            addRecyclerSongsPlayList(list, "Fila");
 
         });
     }
@@ -444,7 +454,7 @@ public class ButtonsController implements Initializable, Observer {
                 List<Song> album = playList.get(key);
 
                 if (album.isEmpty()) {
-                    return;
+                    continue;
                 } else {
                     Song capa = album.get(0);
 
@@ -472,7 +482,7 @@ public class ButtonsController implements Initializable, Observer {
 
             HBox hbRecycler = loader.load();
             RecyclerViewSongController rvc = loader.getController();
-            rvc.setData(song, new ArrayList<>(), mediaPlayerModelo, mainModelo);
+            rvc.setData(song, new ArrayList<>(), mediaPlayerModelo, mainModelo, name);
 
             vbRecyclerSongs.getChildren().add(hbRecycler);
 
@@ -492,7 +502,7 @@ public class ButtonsController implements Initializable, Observer {
 
                 HBox hbRecycler = loader.load();
                 RecyclerViewSongController rvc = loader.getController();
-                rvc.setData(song, list, mediaPlayerModelo, mainModelo);
+                rvc.setData(song, list, mediaPlayerModelo, mainModelo, name);
 
                 vbRecyclerSongs.getChildren().add(hbRecycler);
                 lbNomePlaylist.setText(name);
@@ -530,6 +540,26 @@ public class ButtonsController implements Initializable, Observer {
         mainModelo.getNameExistingPlaylist();
     }
 
+    private void createLabelsPlaylist() {
+        vbPlaylistsMenu.getChildren().clear();
+        String nome[] = mainModelo.getNameExistingPlaylist();
+
+        for (String keyName : nome) {
+            Label lbNomePlaylist = new Label(keyName);
+            lbNomePlaylist.setCursor(Cursor.HAND);
+            lbNomePlaylist.setFont(new Font("System", 15));
+            lbNomePlaylist.setTextFill(Color.web("#a1a1a1"));
+
+            lbNomePlaylist.setOnMouseClicked(arg0 -> {
+                eventRecyclerPlaylist();
+                addRecyclerSongsPlayList(mainModelo.getSongPlaylist(lbNomePlaylist.getText()),
+                        lbNomePlaylist.getText());
+            });
+
+            vbPlaylistsMenu.getChildren().add(lbNomePlaylist);
+        }
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         Platform.runLater(new Runnable() {
@@ -543,8 +573,18 @@ public class ButtonsController implements Initializable, Observer {
                     listRecentlyPlayed = new ArrayList<Song>(mainModelo.getRecentlyPlayed());
                     recentlyPlayedCard.getChildren().clear();
                     addCardSong(recentlyPlayedCard, listRecentlyPlayed);
-                } else {
 
+                    if (arg != null) {
+                        if ((mediaPlayerModelo.getCurrentPlaylist() != null)
+                                && (!mediaPlayerModelo.getCurrentPlaylist().isEmpty())) {
+                            if (arg == mediaPlayerModelo.getCurrentPlaylist()) {
+                                mediaPlayerModelo.setHavePlaylist(false);
+                            }
+                        }
+                    }
+
+                    createLabelsPlaylist();
+                } else {
                     Song currentTrack = mediaPlayerModelo.getCurrentTrack();
 
                     imgMusicCurrent.setImage(new Image(getClass().getResourceAsStream(currentTrack.getAlbumImage())));

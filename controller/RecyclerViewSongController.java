@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,11 +17,13 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import model.MainModel;
 import model.MediaPlayerModel;
 import model.Song;
+import util.ToolsUtils;
 
-public class RecyclerViewSongController {
+public class RecyclerViewSongController implements Observer {
     @FXML
     private HBox hbRVSong;
 
@@ -46,12 +50,18 @@ public class RecyclerViewSongController {
 
     private MediaPlayerModel mpm;
 
+    private Song song;
+
     public RecyclerViewSongController() {
     }
 
-    public void setData(Song song, List<Song> playList, MediaPlayerModel mpm, MainModel mainModelo) {
+    public void setData(Song song, List<Song> playList, MediaPlayerModel mpm, MainModel mainModelo,
+            String nomePlaylist) {
 
         this.mpm = mpm;
+        this.mpm.addObserver(this);
+        this.song = song;
+
         int order = 0;
 
         if (!playList.isEmpty()) {
@@ -76,17 +86,23 @@ public class RecyclerViewSongController {
 
         lbDuration.setText(song.getEndTime());
 
-        eventHbox(playList, song);
+        eventHbox(playList, song, nomePlaylist);
+
+        if (mpm.getCurrentTrack().getTitleMusic().equals(lbTitleSong.getText())) {
+            music_selected();
+        } else {
+            music_not_selected();
+        }
 
     }
 
-    private void eventHbox(List<Song> playList, Song song) {
+    private void eventHbox(List<Song> playList, Song song, String nomePlaylist) {
 
         hbRVSong.setOnMouseClicked(arg0 -> {
 
             if (arg0.getButton() == MouseButton.PRIMARY) {
                 if (!playList.isEmpty()) {
-                    mpm.setPlaylist(playList);
+                    mpm.setPlaylist(playList, nomePlaylist);
                 }
 
                 mpm.setMusic(song);
@@ -96,19 +112,48 @@ public class RecyclerViewSongController {
 
         });
 
-        hbRVSong.hoverProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
-
-                hbRVSong.setBackground(
-                        new Background(new BackgroundFill(Color.web("#87878785"), new CornerRadii(5), Insets.EMPTY)));
-            }
+        hbRVSong.setOnMouseEntered(arg0 -> {
+            hbRVSong.setBackground(
+                    new Background(new BackgroundFill(Color.web("#87878785"), new CornerRadii(5), Insets.EMPTY)));
         });
 
         hbRVSong.setOnMouseExited(arg0 -> {
             hbRVSong.setBackground(
                     new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
         });
+    }
+
+    private void music_selected() {
+        lbAlgum.setTextFill(Color.web("#1ED760"));
+        lbCalendario.setTextFill(Color.web("#1ED760"));
+        lbDuration.setTextFill(Color.web("#1ED760"));
+        lbOrderNumber.setTextFill(Color.web("#1ED760"));
+        lbTitleSong.setTextFill(Color.web("#1ED760"));
+    }
+
+    private void music_not_selected() {
+        lbAlgum.setTextFill(Color.WHITE);
+        lbCalendario.setTextFill(Color.WHITE);
+        lbDuration.setTextFill(Color.WHITE);
+        lbOrderNumber.setTextFill(Color.WHITE);
+        lbTitleSong.setTextFill(Color.WHITE);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (arg == "musica_selecionada") {
+            if (mpm.getCurrentTrack().getTitleMusic().equals(lbTitleSong.getText())) {
+                music_selected();
+            } else {
+                music_not_selected();
+            }
+        } else {
+            if (song.isFavorite()) {
+                ivLiked.setVisible(true);
+            } else {
+                ivLiked.setVisible(false);
+            }
+        }
     }
 
 }

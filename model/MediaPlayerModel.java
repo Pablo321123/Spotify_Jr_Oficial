@@ -31,10 +31,13 @@ public class MediaPlayerModel extends Observable {
     private boolean playing, mute = false, havePlaylist = false;
     private double currentTime, endTime, currentVolume = 50.0; // currentSliderBar
     private MainModel mainModelo;
+    private ButtonsController btc;
+    private String currentPlayList;
 
-    public MediaPlayerModel(MainModel mainModelo) {
+    public MediaPlayerModel(MainModel mainModelo, ButtonsController btc) {
 
         this.mainModelo = mainModelo;
+        this.btc = btc;
 
         songs = new ArrayList<File>();
         directory = new File("music");
@@ -99,6 +102,18 @@ public class MediaPlayerModel extends Observable {
         this.mute = mute;
     }
 
+    public boolean isHavePlaylist() {
+        return havePlaylist;
+    }
+
+    public void setHavePlaylist(boolean havePlaylist) {
+        this.havePlaylist = havePlaylist;
+    }
+
+    public String getCurrentPlaylist() {
+        return currentPlayList;
+    }
+
     public List<Song> getGlobalLibrayMusics() {
         return globalLibrayMusics;
     }
@@ -157,11 +172,13 @@ public class MediaPlayerModel extends Observable {
         }
 
         this.setChanged();
-        notifyObservers();
+        notifyObservers("musica_selecionada");
     }
 
     public void pause() {
-        cancelTimer();
+        if (!(timer == null || task == null)) {
+            cancelTimer();
+        }
         mediaPlayerMp3.pause();
         playing = false;
     }
@@ -175,7 +192,9 @@ public class MediaPlayerModel extends Observable {
             restartMusic();
         } else {
             if (playing) {
-                cancelTimer();
+                if (!(timer == null || task == null)) {
+                    cancelTimer();
+                }
             }
             if (numberSong > 0) {
                 verificaFila(false);
@@ -190,7 +209,9 @@ public class MediaPlayerModel extends Observable {
     public void next() { // Verificar em qual playlist está
 
         if (playing) {
-            cancelTimer();
+            if (!(timer == null || task == null)) {
+                cancelTimer();
+            }
         }
         currentTime = 0;
 
@@ -202,6 +223,9 @@ public class MediaPlayerModel extends Observable {
 
     private void newMusic() {
         mediaPlayerMp3.stop();
+        if (!(timer == null || task == null)) {
+            cancelTimer();
+        }
         playing = false;
 
         String musicPath = songs.get(numberSong).toURI().toString();
@@ -216,7 +240,7 @@ public class MediaPlayerModel extends Observable {
         mediaPlayerMp3 = new MediaPlayer(media);
     }
 
-    public void setPlaylist(List<Song> playList) {
+    public void setPlaylist(List<Song> playList, String nome) {
         numberSong = 0;
         rowSongs.clear();
 
@@ -229,12 +253,17 @@ public class MediaPlayerModel extends Observable {
         numberSong = rowSongs.get(0); // Caso seja definida uma playList a musica atual passa a ser a primeira da
                                       // playList
 
+        currentPlayList = nome;
+
         newMusic();
         play();
     }
 
     public void setMusic(Song song) {
         mediaPlayerMp3.stop();
+        if (!(timer == null || task == null)) {
+            cancelTimer();
+        }
         playing = false;
         numberSong = globalLibrayMusics.indexOf(song);
         media = new Media(song.getPath());
@@ -243,11 +272,15 @@ public class MediaPlayerModel extends Observable {
     }
 
     public void restartMusic() {
+        if (!(timer == null || task == null)) {
+            cancelTimer();
+        }
         currentTime = 0;
         setCurrentTime(currentTime);
     }
 
     private void addMusicLibrary() {
+        int i = 0;
         for (File file : songs) {
             int authors = Integer.parseInt(file.getName().substring(0, 1));
             String[] nameFormatted = ToolsUtils.titleFormat(file.getName(), authors);
@@ -256,6 +289,8 @@ public class MediaPlayerModel extends Observable {
                     "0:00");
 
             globalLibrayMusics.add(song);
+
+            rowSongs.add(i++);
         }
     }
 
@@ -315,10 +350,12 @@ public class MediaPlayerModel extends Observable {
 
                 // currentSliderBar = currentTime / endTime;
                 setChanged();
-                notifyObservers();
+                notifyObservers("Player");
 
                 if (currentTime == endTime) {
-                    cancelTimer();
+                    if (!(timer == null || task == null)) {
+                        cancelTimer();
+                    }
                     next();
                 }
             }
@@ -331,6 +368,7 @@ public class MediaPlayerModel extends Observable {
     public void cancelTimer() {
         playing = false;
         timer.cancel();
+        task.cancel();
     }
 
 }

@@ -21,7 +21,7 @@
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin></ImageView>
-      <Label fx:id="lbTitleSong" prefHeight="17.0" prefWidth="233.0" styleClass="label-title" text="Song_Name" textFill="WHITE">
+      <Label fx:id="lbTitleSong" prefHeight="17.0" prefWidth="233.0" text="Song_Name" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -42,7 +42,7 @@ public class MainModel extends Observable {
 
         if (!listRecentlyPlayed.contains(song)) {
             listRecentlyPlayed.add(song);
-        }    
+        }
 
         setChanged();
         notifyObservers();
@@ -70,8 +70,14 @@ public class MainModel extends Observable {
         playLists.put(name, songs);
 
         setChanged();
-        notifyObservers();
+        notifyObservers("nova_playlist");
 
+    }
+
+    public void removePlaylist(String name) {
+        playLists.remove(name);
+        setChanged();
+        notifyObservers(name);
     }
 
     public List<Song> getSongPlaylist(String name) {
