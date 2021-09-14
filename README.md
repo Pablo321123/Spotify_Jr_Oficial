@@ -1,6 +1,6 @@
 # Trabalho Spotify Jr CEFET/MG
 
-Para acessar a .jar recorte e cole esta na pasta `"\Spotify_Jr"` abra o terminal e execute a seguinte linha de comando, com o terminal apontando para a pasta "\Spotify_Jr", 
+Para acessar a .jar recorte e cole esta na pasta `"\Spotify_Jr" (Pasta Raíz do projeto)` abra o terminal e execute a seguinte linha de comando, com o terminal apontando para a pasta "\Spotify_Jr (Pasta Raíz do projeto)", 
 
 Para Windows:
 
