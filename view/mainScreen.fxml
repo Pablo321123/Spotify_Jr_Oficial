@@ -36,7 +36,7 @@
                            <image>
                               <Image url="@../bin/img/ic_home_active.png" />
                            </image></ImageView>
-                        <Label id="lbInicio" prefHeight="27.0" prefWidth="135.0" stylesheets="@../css/mainStyle.css" text="Início" textFill="#a1a1a1">
+                        <Label id="lbInicio" prefHeight="27.0" prefWidth="151.0" stylesheets="@../css/mainStyle.css" text="Início" textFill="#a1a1a1">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -53,7 +53,7 @@
                               <Image url="@../bin/img/ic_search.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="27.0" prefWidth="135.0" stylesheets="@../css/mainStyle.css" text="Procurar" textFill="#a1a1a1">
+                        <Label prefHeight="27.0" prefWidth="147.0" stylesheets="@../css/mainStyle.css" text="Procurar" textFill="#a1a1a1">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -70,7 +70,7 @@
                               <Image url="@../bin/img/bookshelf.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="27.0" prefWidth="135.0" stylesheets="@../css/mainStyle.css" text="Sua Biblioteca" textFill="#a1a1a1">
+                        <Label prefHeight="27.0" prefWidth="147.0" stylesheets="@../css/mainStyle.css" text="Sua Biblioteca" textFill="#a1a1a1">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -115,7 +115,7 @@
                               <Image url="@../bin/img/ic_add.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="27.0" prefWidth="119.0" stylesheets="@../css/mainStyle.css" text="Criar playlist" textFill="#a1a1a1">
+                        <Label prefHeight="27.0" prefWidth="131.0" stylesheets="@../css/mainStyle.css" text="Criar playlist" textFill="#a1a1a1">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
